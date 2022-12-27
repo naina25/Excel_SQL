@@ -1,0 +1,116 @@
+body {
+    height: 100vh;
+    background-color: beige;
+}
+.App {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.sheet-dropdown {
+    font-size: 17px;
+    background-color: rgb(200, 231, 204);
+    border: none;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+.sheet-dropdown:hover {
+    background-color: rgba(200, 231, 204, 0.85);
+}
+.sheet-dropdown:focus-visible {
+    outline: none;
+}
+.table-td {
+    padding: 10px 0;
+}
+.sheet-table-div {
+    /* display: flex;
+	justify-content: center;
+	align-items: center; */
+    margin-top: 30px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: scroll;
+}
+
+.xl-table {
+    table-layout: fixed;
+    /* border: 2px solid rgb(121, 92, 92); */
+    /* border-radius: 15px; */
+    border-spacing: 0;
+    /* min-width: 700px; */
+    width: 100%;
+    /* margin-left: 1220px; */
+    /* overflow-x: scroll; */
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.table-row {
+    height: 20px;
+}
+
+.table-head {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.table-data {
+    width: 60px !important;
+    padding: 10px;
+}
+
+.row-bg {
+    background-color: rgb(219, 219, 219);
+}
+
+.sheets-div {
+    margin-bottom: 20px;
+}
+
+.sheet-names {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(133, 88, 133);
+}
+
+input {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0);
+    min-height: 20px;
+    font-size: 15px;
+    text-align: center;
+}
+
+input:focus-visible {
+    /* background-color: rgba(255, 255, 255, 0.699); */
+    outline: none;
+    /* border: 1px solid gray; */
+}
+
+.showPopup {
+    opacity: 1;
+    transition: all ease 0.5s;
+}
+
+.hidePopup {
+    opacity: 0;
+    transition: all ease 0.6s;
+}
+
+.popup {
+    background-color: rgb(200, 231, 204);
+    width: max-content;
+    padding: 20px;
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    position: fixed;
+}
