@@ -7,7 +7,9 @@ namespace ExcelSql.Services
         public List<string> GetSheetsNames();
         public System.Data.DataTable GetSheetData(string sheetName);
         public System.Data.DataTable GetSQLTables();
-        public void EditSheet();
+        public void EditSheet(string sheetName, string jsonData);
+
+        public System.Data.DataTable GetSortedData(string tableName, string column, string order);
 
     }
 }

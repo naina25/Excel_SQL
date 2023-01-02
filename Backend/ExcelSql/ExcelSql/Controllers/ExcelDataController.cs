@@ -17,22 +17,11 @@ namespace ExcelSql.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WriteController : ControllerBase
+    public class ExcelDataController : ControllerBase
     {
-        //private readonly IConfiguration _configuration;
-        //private readonly string excelPath;
-        //private readonly string dbConnection;
-
-        //public WriteController(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //    excelPath = _configuration.GetSection("ExcelPath").Value.ToString();
-        //    dbConnection = _configuration.GetConnectionString("MyConnectionString");
-        //}
-
         private readonly IExcelSQLService _excelSQLService;
 
-        public WriteController(IExcelSQLService excelSQLService)
+        public ExcelDataController(IExcelSQLService excelSQLService)
         {
             _excelSQLService= excelSQLService;
         }
@@ -62,7 +51,15 @@ namespace ExcelSql.Controllers
         [Route("sheets/{sheetName}/edit")]
         public IActionResult EditSheet(string sheetName, [FromBody] string jsonData)
         {
-           
+            _excelSQLService.EditSheet(sheetName, jsonData);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("sheets/sort/{tableName}")]
+        public IActionResult GetSortedData(string tableName, string column, string order)
+        {
+            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSortedData(tableName, column, order)));
         }
     }
 }

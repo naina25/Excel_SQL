@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\naina.upadhyay\\Downloads\\ExcelSql\\ExcelSql\\ExcelSql\\ExcelSql.csproj": {}
+    "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj": {}
   },
   "projects": {
-    "C:\\Users\\naina.upadhyay\\Downloads\\ExcelSql\\ExcelSql\\ExcelSql\\ExcelSql.csproj": {
+    "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\naina.upadhyay\\Downloads\\ExcelSql\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
+        "projectUniqueName": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
         "projectName": "ExcelSql",
-        "projectPath": "C:\\Users\\naina.upadhyay\\Downloads\\ExcelSql\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
+        "projectPath": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
         "packagesPath": "C:\\Users\\naina.upadhyay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\naina.upadhyay\\Downloads\\ExcelSql\\ExcelSql\\ExcelSql\\obj\\",
+        "outputPath": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

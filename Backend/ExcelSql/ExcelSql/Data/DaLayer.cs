@@ -177,7 +177,7 @@ namespace ExcelSql.Data
             return table;
         }
 
-        public void EditSheet()
+        public void EditSheet(string sheetName, string jsonData, Dictionary<string, string> dictObj)
         {
             string updateQuery = $"UPDATE [{sheetName}] SET ";
 
@@ -202,6 +202,26 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
+        }
+
+        public System.Data.DataTable GetSortedData(string tableName, string column, string order)
+        {
+            string readQuery = $"Select * from [{tableName}] order by [{column}] {order}";
+            System.Data.DataTable data = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(readQuery, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    data.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return data;
         }
     }
 }
