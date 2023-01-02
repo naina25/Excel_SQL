@@ -61,92 +61,99 @@ const SheetData = ({
             </div>
             <div className="sheet-table-div">
                 {!isLoadingSheetData ? (
-                    <table className="xl-table">
-                        <thead>
-                            <tr className="table-head">
+                    sheetData && sheetData.length > 0 ? (
+                        <table className="xl-table">
+                            <thead>
+                                <tr className="table-head">
+                                    {sheetData &&
+                                        sheetData.length &&
+                                        Object.keys(sheetData[0]).map(function (
+                                            keyName,
+                                            keyIndex
+                                        ) {
+                                            return (
+                                                keyIndex !== 0 && (
+                                                    <td
+                                                        key={keyIndex}
+                                                        className="table-td"
+                                                    >
+                                                        {keyName}
+                                                    </td>
+                                                )
+                                            );
+                                        })}
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {sheetData &&
-                                    sheetData.length &&
-                                    Object.keys(sheetData[0]).map(function (
-                                        keyName,
-                                        keyIndex
-                                    ) {
-                                        return (
-                                            keyIndex !== 0 && (
-                                                <td
-                                                    key={keyIndex}
-                                                    className="table-td"
+                                    Object.entries(sheetData).map(
+                                        ([key, value], index) => {
+                                            return (
+                                                <tr
+                                                    key={index}
+                                                    className={`${
+                                                        index % 2 === 0 &&
+                                                        "row-bg "
+                                                    }table-row`}
                                                 >
-                                                    {keyName}
-                                                </td>
-                                            )
-                                        );
-                                    })}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sheetData &&
-                                Object.entries(sheetData).map(
-                                    ([key, value], index) => {
-                                        return (
-                                            <tr
-                                                key={index}
-                                                className={`${
-                                                    index % 2 === 0 && "row-bg "
-                                                }table-row`}
-                                            >
-                                                {Object.keys(value).map(
-                                                    (valueKey, ind) => {
-                                                        return (
-                                                            ind !== 0 && (
-                                                                <td
-                                                                    key={ind}
-                                                                    className="table-td"
-                                                                >
-                                                                    <textarea
-                                                                        rows="4"
-                                                                        defaultValue={
-                                                                            value[
-                                                                                valueKey
-                                                                            ]
+                                                    {Object.keys(value).map(
+                                                        (valueKey, ind) => {
+                                                            return (
+                                                                ind !== 0 && (
+                                                                    <td
+                                                                        key={
+                                                                            ind
                                                                         }
-                                                                        onKeyUp={(
-                                                                            e
-                                                                        ) => {
-                                                                            if (
-                                                                                e.key ===
-                                                                                "Enter"
-                                                                            ) {
-                                                                                putRow(
-                                                                                    editData
-                                                                                );
-                                                                                e.preventDefault();
-                                                                                e.target.blur();
-                                                                            } else {
-                                                                                setEditData(
-                                                                                    () => {
-                                                                                        return {
-                                                                                            ...value,
-                                                                                            [valueKey]:
-                                                                                                e
-                                                                                                    .target
-                                                                                                    .value,
-                                                                                        };
-                                                                                    }
-                                                                                );
+                                                                        className="table-td"
+                                                                    >
+                                                                        <textarea
+                                                                            rows="4"
+                                                                            defaultValue={
+                                                                                value[
+                                                                                    valueKey
+                                                                                ]
                                                                             }
-                                                                        }}
-                                                                    />
-                                                                </td>
-                                                            )
-                                                        );
-                                                    }
-                                                )}
-                                            </tr>
-                                        );
-                                    }
-                                )}
-                        </tbody>
-                    </table>
+                                                                            onKeyUp={(
+                                                                                e
+                                                                            ) => {
+                                                                                if (
+                                                                                    e.key ===
+                                                                                    "Enter"
+                                                                                ) {
+                                                                                    putRow(
+                                                                                        editData
+                                                                                    );
+                                                                                    e.preventDefault();
+                                                                                    e.target.blur();
+                                                                                } else {
+                                                                                    setEditData(
+                                                                                        () => {
+                                                                                            return {
+                                                                                                ...value,
+                                                                                                [valueKey]:
+                                                                                                    e
+                                                                                                        .target
+                                                                                                        .value,
+                                                                                            };
+                                                                                        }
+                                                                                    );
+                                                                                }
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                )
+                                                            );
+                                                        }
+                                                    )}
+                                                </tr>
+                                            );
+                                        }
+                                    )}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <h4>No data</h4>
+                    )
                 ) : (
                     <h3>Loading Sheet Data...</h3>
                 )}
