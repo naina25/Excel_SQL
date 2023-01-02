@@ -102,8 +102,8 @@ const SheetData = ({
                                                                     key={ind}
                                                                     className="table-td"
                                                                 >
-                                                                    <input
-                                                                        type="text"
+                                                                    <textarea
+                                                                        rows="4"
                                                                         defaultValue={
                                                                             value[
                                                                                 valueKey
