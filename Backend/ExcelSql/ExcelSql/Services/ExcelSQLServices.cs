@@ -14,7 +14,6 @@ namespace ExcelSql.Services
             _dataLayer = dataLayer;
         }
 
-
         public List<string> GetSheetsNames()
         {
             return _dataLayer.GetSheets();
@@ -30,11 +29,16 @@ namespace ExcelSql.Services
             return _dataLayer.GetSqlTables();
         }
 
-        public void EditSheet(string jsonData, string sheetName)
+        public void EditSheet(string sheetName, string jsonData)
         {
             jsonData = jsonData.Replace("\\", "");
-            Console.WriteLine(jsonData);
-            Dictionary<string, string> dictObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData); ;
+            Dictionary<string, string>? dictObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+            _dataLayer.EditSheet(sheetName, jsonData, dictObj);
+        }
+
+        public System.Data.DataTable GetSortedData(string tableName, string column, string order)
+        {
+            return _dataLayer.GetSortedData(tableName, column, order);
         }
     }
 }
