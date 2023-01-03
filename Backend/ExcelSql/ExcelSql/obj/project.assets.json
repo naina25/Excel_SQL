@@ -2372,25 +2372,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\naina.upadhyay\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\devesh.singh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
+      "projectUniqueName": "C:\\training\\excel_sql_git\\Excel_SQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
       "projectName": "ExcelSql",
-      "projectPath": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
-      "packagesPath": "C:\\Users\\naina.upadhyay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\naina.upadhyay\\Desktop\\ExcelSQL\\Backend\\ExcelSql\\ExcelSql\\obj\\",
+      "projectPath": "C:\\training\\excel_sql_git\\Excel_SQL\\Backend\\ExcelSql\\ExcelSql\\ExcelSql.csproj",
+      "packagesPath": "C:\\Users\\devesh.singh\\.nuget\\packages\\",
+      "outputPath": "C:\\training\\excel_sql_git\\Excel_SQL\\Backend\\ExcelSql\\ExcelSql\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\naina.upadhyay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\devesh.singh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
