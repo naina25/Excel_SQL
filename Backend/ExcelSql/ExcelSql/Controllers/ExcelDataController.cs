@@ -47,6 +47,13 @@ namespace ExcelSql.Controllers
             return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSQLTables()));
         }
 
+        [HttpGet]
+        [Route("sqltables/{tableName}")]
+        public IActionResult GetColumnNames(string tableName)
+        {
+            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetTableColumns(tableName)));
+        }
+
         [HttpPut]
         [Route("sheets/{sheetName}/edit")]
         public IActionResult EditSheet(string sheetName, [FromBody] string jsonData)
