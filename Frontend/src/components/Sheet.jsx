@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import Chart from "./Chart";
 import SheetData from "./SheetData";
 import SheetsDropdown from "./SheetsDropdown";
 
-const Sheet = ({ source }) => {
+const Sheet = ({ source, isReport }) => {
 	const [sheets, setSheets] = useState([]);
 	const [isLoadingSheetNames, setIsLoadingSheetNames] = useState(true);
 	const [isLoadingSheetData, setIsLoadingSheetData] = useState(false);
 	const [selectedSheet, setSelectedSheet] = useState("");
+	const [sheetData, setSheetData] = useState();
 	return (
 		<div>
 			<SheetsDropdown
@@ -19,14 +21,20 @@ const Sheet = ({ source }) => {
 				setSheets={setSheets}
 				source={source}
 			/>
-			{!isLoadingSheetNames && (
-				<SheetData
-					isLoadingSheetData={isLoadingSheetData}
-					setIsLoadingSheetData={setIsLoadingSheetData}
-					selectedSheet={selectedSheet}
-					setSelectedSheet={setSelectedSheet}
-					sheets={sheets}
-				/>
+			{!isReport ? (
+				!isLoadingSheetNames && (
+					<SheetData
+						isLoadingSheetData={isLoadingSheetData}
+						setIsLoadingSheetData={setIsLoadingSheetData}
+						selectedSheet={selectedSheet}
+						setSelectedSheet={setSelectedSheet}
+						sheets={sheets}
+						sheetData={sheetData}
+						setSheetData={setSheetData}
+					/>
+				)
+			) : (
+				<Chart selectedSheet={selectedSheet} sheetData={sheetData} />
 			)}
 		</div>
 	);

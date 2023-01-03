@@ -40,5 +40,10 @@ namespace ExcelSql.Services
         {
             return _dataLayer.GetSortedData(tableName, column, order);
         }
+
+        public System.Data.DataTable GetTableColumns(string tableName)
+        {
+            return _dataLayer.GetTableColumns(tableName);
+        }
     }
 }

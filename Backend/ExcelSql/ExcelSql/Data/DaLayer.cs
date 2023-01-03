@@ -177,6 +177,26 @@ namespace ExcelSql.Data
             return table;
         }
 
+        public System.Data.DataTable GetTableColumns(string tableName)
+        {
+            string getColQuery = $"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('{tableName}')";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(getColQuery, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return table;
+        }
+
         public void EditSheet(string sheetName, string jsonData, Dictionary<string, string> dictObj)
         {
             string updateQuery = $"UPDATE [{sheetName}] SET ";
