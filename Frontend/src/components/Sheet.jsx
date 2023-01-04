@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReportPage from "./ReportPage";
 import SheetData from "./SheetData";
 import SheetsDropdown from "./SheetsDropdown";
@@ -8,6 +8,16 @@ const Sheet = ({ source, isReport }) => {
     const [isLoadingSheetNames, setIsLoadingSheetNames] = useState(true);
     const [isLoadingSheetData, setIsLoadingSheetData] = useState(false);
     const [selectedSheet, setSelectedSheet] = useState("");
+    const [sourceState, setSourceState] = useState();
+
+    useEffect(() => {
+        setSourceState(source);
+    }, [source]);
+
+    useEffect(() => {
+        console.log(sourceState);
+    }, [sourceState]);
+
     return (
         <div>
             <SheetsDropdown

@@ -14,7 +14,7 @@ body {
     max-width: 20vw;
     background-color: rgba(219, 219, 219, 1);
     margin-right: 10px;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .navlinks {

@@ -6,14 +6,14 @@ import {
     Route,
     Routes,
 } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
 // import TablesList from "./components/TablesList";
 
 function App() {
     return (
         <div className="App">
             <Router>
-                <NavLink to={"/TablesList"}>Tables</NavLink>
-                <NavLink to={"/Report"}>Report</NavLink>
+                <Sidebar />
                 <Routes>
                     <Route
                         exact
