@@ -26,7 +26,7 @@ const SheetsDropdown = ({
                     setIsLoadingSheetNames && setIsLoadingSheetNames(false);
                 });
         };
-        sheets.length === 0 && getSheets();
+        getSheets();
     }, [source]);
 
     // useEffect(() => {
