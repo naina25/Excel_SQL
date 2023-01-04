@@ -243,5 +243,45 @@ namespace ExcelSql.Data
             }
             return data;
         }
+
+        public System.Data.DataTable GetDistinctEntries(string tableName, string colName)
+        {
+            string getDistValQuery = $"SELECT DISTINCT [{colName}] FROM [{tableName}]";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(getDistValQuery, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return table;
+        }
+
+        public System.Data.DataTable GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
+        {
+            string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount FROM [{tableName}] WHERE [{firstCol}] = '{selectedVal}' GROUP BY [{secondCol}]";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(getGroupedValsQuery, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return table;
+        }
     }
 }

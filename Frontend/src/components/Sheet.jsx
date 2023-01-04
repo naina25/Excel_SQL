@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chart from "./Chart";
+import ReportPage from "./ReportPage";
 import SheetData from "./SheetData";
 import SheetsDropdown from "./SheetsDropdown";
 
@@ -8,7 +8,6 @@ const Sheet = ({ source, isReport }) => {
 	const [isLoadingSheetNames, setIsLoadingSheetNames] = useState(true);
 	const [isLoadingSheetData, setIsLoadingSheetData] = useState(false);
 	const [selectedSheet, setSelectedSheet] = useState("");
-	const [sheetData, setSheetData] = useState();
 	return (
 		<div>
 			<SheetsDropdown
@@ -29,12 +28,10 @@ const Sheet = ({ source, isReport }) => {
 						selectedSheet={selectedSheet}
 						setSelectedSheet={setSelectedSheet}
 						sheets={sheets}
-						sheetData={sheetData}
-						setSheetData={setSheetData}
 					/>
 				)
 			) : (
-				<Chart selectedSheet={selectedSheet} sheetData={sheetData} />
+				<ReportPage selectedSheet={selectedSheet} />
 			)}
 		</div>
 	);
