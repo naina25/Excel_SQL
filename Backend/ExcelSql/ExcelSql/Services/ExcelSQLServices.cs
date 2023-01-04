@@ -45,5 +45,15 @@ namespace ExcelSql.Services
         {
             return _dataLayer.GetTableColumns(tableName);
         }
+
+        public System.Data.DataTable GetDistinctVals(string tableName, string colName)
+        {
+            return _dataLayer.GetDistinctEntries(tableName, colName);
+        }
+
+        public System.Data.DataTable GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
+        {
+            return _dataLayer.GetChartVals(tableName, firstCol, secondCol, selectedVal);
+        }
     }
 }
