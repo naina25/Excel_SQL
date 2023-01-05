@@ -31,50 +31,50 @@ namespace ExcelSql.Controllers
         [Route("sheets")]
         public IActionResult GetSheet()
         {
-            return Ok(_excelSQLService.GetSheetsNames());
+            return Ok(_excelSQLService.GetSheetsNames());   // Not needed
         }
 
         [HttpGet]
         [Route("sheets/{sheetName}")]
         public IActionResult GetSheetData(string sheetName)
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSheetData(sheetName)));
+            return Ok(_excelSQLService.GetSheetData(sheetName));  //Done
         }
 
         [HttpGet]
         [Route("sqltables")]
         public IActionResult GetTablesName()
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSQLTables()));
+            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSQLTables()));   // Not needed
         }
 
         [HttpGet]
         [Route("sqltables/{tableName}")]
         public IActionResult GetColumnNames(string tableName)
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetTableColumns(tableName)));
+            return Ok(_excelSQLService.GetTableColumns(tableName));  //Done
         }
 
         [HttpGet]
         [Route("sqltables/{tableName}/{colName}")]
-        public IActionResult GetColumnNames(string tableName, string colName)
+        public IActionResult GetDistinctVals(string tableName, string colName)
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetDistinctVals(tableName, colName)));
+            return Ok(_excelSQLService.GetDistinctVals(tableName, colName));  //Done
         }
 
         [HttpPut]
         [Route("sheets/{sheetName}/edit")]
         public IActionResult EditSheet(string sheetName, [FromBody] string jsonData)
         {
-            _excelSQLService.EditSheet(sheetName, jsonData);
-            return Ok();
+            
+            return Ok(_excelSQLService.EditSheet(sheetName, jsonData));  //Done
         }
 
         [HttpGet]
         [Route("sheets/sort/{tableName}")]
         public IActionResult GetSortedData(string tableName, string column, string order)
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSortedData(tableName, column, order)));
+            return Ok(_excelSQLService.GetSortedData(tableName, column, order));  //Done
         }
 
         [HttpGet]

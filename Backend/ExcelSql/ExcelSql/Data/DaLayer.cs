@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -32,25 +33,27 @@ namespace ExcelSql.Data
             foreach (Worksheet ws in _workbook.Sheets)
             {
                 sheetNames.Add(ws.Name);
-                string query = $"SELECT CASE WHEN OBJECT_ID('dbo.{ws.Name}', 'U') IS NOT NULL THEN 'Found' ELSE 'Not Found' END";
-                System.Data.DataTable table = new System.Data.DataTable();
-                string sqlDataSource = dbConnection;
-                SqlDataReader myReader;
-                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-                {
-                    myCon.Open();
-                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                    {
-                        myReader = myCommand.ExecuteReader();
-                        table.Load(myReader);
-                        myReader.Close();
-                        myCon.Close();
-                    }
-                }
-                if (table.Rows[0][0].ToString() == "Not Found")
-                {
-                    CreateAndInsert(_workbook, ws, sqlDataSource);
-                }
+                //string query = $"SELECT CASE WHEN OBJECT_ID('dbo.{ws.Name}', 'U') IS NOT NULL THEN 'Found' ELSE 'Not Found' END";
+                //System.Data.DataTable table = new System.Data.DataTable();
+                //string sqlDataSource = dbConnection;
+                //SqlDataReader myReader;
+                //using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+                //{
+                //    myCon.Open();
+                //    using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                //    {
+                //        myReader = myCommand.ExecuteReader();
+                //        table.Load(myReader);
+                //        myReader.Close();
+                //        myCon.Close();
+                //    }
+                //}
+                //if (table.Rows[0][0].ToString() == "Not Found")
+                //{
+                //    CreateAndInsert(_workbook, ws, sqlDataSource);
+                //}
+                if (!IsTablePresent(tableName: ws.Name))
+                    CreateAndInsert(_workbook, ws);
 
             }
             _workbook.Close(true, excelPath, null);
@@ -68,10 +71,11 @@ namespace ExcelSql.Data
 
         }
 
-        public void CreateAndInsert(Workbook _workbook, Worksheet ws, string sqlDataSource)
+        public void CreateAndInsert(Workbook _workbook, Worksheet ws)
         {
             Worksheet sheet = _workbook.Sheets[ws.Name];
             Microsoft.Office.Interop.Excel.Range range = sheet.UsedRange;
+            string sqlDataSource = dbConnection;
             int rowCount = range.Rows.Count;
             int colCount = range.Columns.Count;
             List<List<string>> sheetData = new List<List<string>>();
@@ -137,7 +141,7 @@ namespace ExcelSql.Data
             }
         }
 
-        public System.Data.DataTable GetSheetData(string sheetName)
+        public string GetSheetData(string sheetName)
         {
             string readQuery = $"SELECT * FROM [{sheetName}]";
             System.Data.DataTable table = new System.Data.DataTable();
@@ -154,7 +158,7 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
-            return table;
+            return JsonConvert.SerializeObject(table);
         }
 
         public System.Data.DataTable GetSqlTables()
@@ -177,7 +181,7 @@ namespace ExcelSql.Data
             return table;
         }
 
-        public System.Data.DataTable GetTableColumns(string tableName)
+        public string GetTableColumns(string tableName)
         {
             string getColQuery = $"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('{tableName}')";
             System.Data.DataTable table = new System.Data.DataTable();
@@ -194,37 +198,43 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
-            return table;
+            return JsonConvert.SerializeObject(table);
         }
 
-        public void EditSheet(string sheetName, string jsonData, Dictionary<string, string> dictObj)
+        public string EditSheet(string sheetName, Dictionary<string, string> dictObj)
         {
-            string updateQuery = $"UPDATE [{sheetName}] SET ";
-
-            for (int i = 1; i < dictObj.Count; i++)
+            try
             {
+                string updateQuery = $"UPDATE [{sheetName}] SET ";
 
-                updateQuery += $"[{dictObj.ElementAt(i).Key}]='{dictObj.ElementAt(i).Value}'";
-                if (i != dictObj.Count - 1)
-                    updateQuery += ", ";
-            }
-            updateQuery += $" WHERE [{dictObj.ElementAt(0).Key}]='{dictObj.ElementAt(0).Value}';";
-
-            Console.WriteLine(updateQuery);
-
-            string sqlDataSource = dbConnection;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(updateQuery, myCon))
+                for (int i = 1; i < dictObj.Count; i++)
                 {
-                    myCommand.ExecuteReader();
-                    myCon.Close();
+
+                    updateQuery += $"[{dictObj.ElementAt(i).Key}]='{dictObj.ElementAt(i).Value}'";
+                    if (i != dictObj.Count - 1)
+                        updateQuery += ", ";
                 }
+                updateQuery += $" WHERE [{dictObj.ElementAt(0).Key}]='{dictObj.ElementAt(0).Value}';";
+
+                string sqlDataSource = dbConnection;
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+                {
+                    myCon.Open();
+                    using (SqlCommand myCommand = new SqlCommand(updateQuery, myCon))
+                    {
+                        myCommand.ExecuteReader();
+                        myCon.Close();
+                    }
+                }
+                return "Data Updated Successfully";
+            }
+            catch(Exception ex)
+            {
+                return $"Error occured: {ex.Message}";
             }
         }
 
-        public System.Data.DataTable GetSortedData(string tableName, string column, string order)
+        public string GetSortedData(string tableName, string column, string order)
         {
             string readQuery = $"Select * from [{tableName}] order by [{column}] {order}";
             System.Data.DataTable data = new System.Data.DataTable();
@@ -241,10 +251,10 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
-            return data;
+            return JsonConvert.SerializeObject(data);
         }
 
-        public System.Data.DataTable GetDistinctEntries(string tableName, string colName)
+        public string GetDistinctEntries(string tableName, string colName)
         {
             string getDistValQuery = $"SELECT DISTINCT [{colName}] FROM [{tableName}]";
             System.Data.DataTable table = new System.Data.DataTable();
@@ -261,12 +271,13 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
-            return table;
+            return JsonConvert.SerializeObject(table);
         }
 
-        public System.Data.DataTable GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
+        public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
         {
-            string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount FROM [{tableName}] WHERE [{firstCol}] = '{selectedVal}' GROUP BY [{secondCol}]";
+            string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
+                $"FROM [{tableName}] WHERE [{firstCol}] = '{selectedVal}' GROUP BY [{secondCol}]";
             System.Data.DataTable table = new System.Data.DataTable();
             string sqlDataSource = dbConnection;
             SqlDataReader myReader;
@@ -281,7 +292,70 @@ namespace ExcelSql.Data
                     myCon.Close();
                 }
             }
-            return table;
+            return JsonConvert.SerializeObject(table);
+        }
+
+        public bool IsTablePresent(string tableName)
+        {
+            string query = $"SELECT CASE WHEN OBJECT_ID('{tableName}', 'U') IS NOT NULL " +
+                $"THEN 'Found' ELSE 'Not Found' END";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return (table.Rows[0][0].ToString() == "Found");
+        }
+
+        public bool IsColumnPresent(string tableName, string colName)
+        {
+            string query = $"SELECT CASE WHEN COL_LENGTH('{tableName}','{colName}') IS NOT NULL " +
+                $"THEN 'Found' ELSE 'Not Found' END;";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return (table.Rows[0][0].ToString() == "Found");
+        }
+
+        public bool IsValuePresent(string tableName, string colName, string val)
+        {
+            string query = $"SELECT CASE WHEN EXISTS(SELECT 1 FROM [{tableName}] " +
+                $"where [{colName}]='{val}') THEN 'Found' ELSE 'Not Found' END;";
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return (table.Rows[0][0].ToString() == "Found");
         }
     }
 }
