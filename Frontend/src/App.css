@@ -159,3 +159,30 @@ textarea:focus-visible {
     top: 10%;
     position: fixed;
 }
+
+.report-dropdown {
+    font-size: 15px;
+    background-color: rgb(222, 224, 223);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+.report-dropdown:focus-visible {
+    outline: none;
+}
+
+.reportPage-div {
+    min-width: 78vw;
+    max-width: 78vw;
+}
+
+canvas#myChart {
+    margin: 50px auto !important;
+    width: 60%;
+    height: auto;
+    overflow: visible;
+}
