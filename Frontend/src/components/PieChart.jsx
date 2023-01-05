@@ -56,21 +56,17 @@ const PieChart = ({
                             chartData.map((entry, index) => {
                                 return entry.ValCount;
                             }),
-                        // colorRangeInfo: {
-                        //     colorStart: 0.5,
-                        //     colorEnd: 1,
-                        //     useEndAsStart: false,
-                        // },
-
-                        backgroundColor: chartData.map((entry, index) => {
-                            var letters = "0123456789ABCDEF".split("");
-                            var color = "#";
-                            for (var i = 0; i < 6; i++) {
-                                color +=
-                                    letters[Math.floor(Math.random() * 16)];
-                            }
-                            return color;
-                        }),
+                        backgroundColor:
+                            chartData &&
+                            chartData.map((entry, index) => {
+                                var letters = "0123456789ABCDEF".split("");
+                                var color = "#";
+                                for (var i = 0; i < 6; i++) {
+                                    color +=
+                                        letters[Math.floor(Math.random() * 16)];
+                                }
+                                return color;
+                            }),
                         hoverOffset: 15,
                     },
                 ],
