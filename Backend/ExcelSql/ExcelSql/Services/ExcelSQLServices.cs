@@ -9,9 +9,12 @@ namespace ExcelSql.Services
     {
         private readonly IDaLayer _dataLayer;
 
-        public ExcelSQLServices(IDaLayer dataLayer)
+        private readonly IValidationService _validationService;
+
+        public ExcelSQLServices(IDaLayer dataLayer, IValidationService validationService)
         {
             _dataLayer = dataLayer;
+            _validationService = validationService;
         }
 
         public List<string> GetSheetsNames()
@@ -19,9 +22,16 @@ namespace ExcelSql.Services
             return _dataLayer.GetSheets();
         }
 
-        public System.Data.DataTable GetSheetData(string sheetName)
+        public string GetSheetData(string sheetName)
         {
-            return _dataLayer.GetSheetData(sheetName);
+            if (_validationService.IsTablePresent(sheetName))
+            {
+                return _dataLayer.GetSheetData(sheetName);
+            }
+            else
+            {
+                return $"Table - {sheetName} not found.";
+            }
         }
 
         public System.Data.DataTable GetSQLTables()
@@ -29,30 +39,108 @@ namespace ExcelSql.Services
             return _dataLayer.GetSqlTables();
         }
 
-        public void EditSheet(string sheetName, string jsonData)
+        public string EditSheet(string sheetName, string jsonData)
         {
-            jsonData = jsonData.Replace("\\", "");
-            Dictionary<string, string>? dictObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
-            _dataLayer.EditSheet(sheetName, jsonData, dictObj);
+            if (_validationService.IsTablePresent(sheetName))
+            {
+                try
+                {
+                    jsonData = jsonData.Replace("\\", "");
+                    Dictionary<string, string>? dictObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+                    return _dataLayer.EditSheet(sheetName, dictObj);
+                }
+                catch (Exception ex)
+                {
+                    return $"Error occured: {ex.Message}";
+                }
+            }
+            else
+            {
+                return $"Table - {sheetName} not found.";
+            }
         }
 
-        public System.Data.DataTable GetSortedData(string tableName, string column, string order)
+        public string GetSortedData(string tableName, string column, string order)
         {
-            return _dataLayer.GetSortedData(tableName, column, order);
+            if (_validationService.IsTablePresent(tableName))
+            {
+                if (_validationService.IsColumnPresent(tableName, column))
+                {
+                    return _dataLayer.GetSortedData(tableName, column, order);
+                }
+                else
+                {
+                    return $"Column - {column} not found in the table.";
+                }
+            }
+            else
+            {
+                return $"Table - {tableName} not found.";
+            }
         }
 
-        public System.Data.DataTable GetTableColumns(string tableName)
+        public string GetTableColumns(string tableName)
         {
-            return _dataLayer.GetTableColumns(tableName);
+            if (_validationService.IsTablePresent(tableName))
+            {
+                return _dataLayer.GetTableColumns(tableName);
+            }
+            else
+            {
+                return $"Table - {tableName} not found.";
+            }
         }
 
-        public System.Data.DataTable GetDistinctVals(string tableName, string colName)
+        public string GetDistinctVals(string tableName, string colName)
         {
-            return _dataLayer.GetDistinctEntries(tableName, colName);
+            if (_validationService.IsTablePresent(tableName))
+            {
+                if (_validationService.IsColumnPresent(tableName, colName))
+                {
+                    return _dataLayer.GetDistinctEntries(tableName, colName);
+                }
+                else
+                {
+                    return $"Column - {colName} not found in the table.";
+                }
+            }
+            else
+            {
+                return $"Table - {tableName} not found.";
+            }
         }
 
-        public System.Data.DataTable GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
+        public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
         {
+            if (_validationService.IsTablePresent(tableName))
+            {
+                if (_validationService.IsColumnPresent(tableName, firstCol))
+                {
+                    if (_validationService.IsColumnPresent(tableName, secondCol))
+                    {
+                        if (_validationService.IsValuePresent(tableName, firstCol, selectedVal))
+                        {
+                            return _dataLayer.GetChartVals(tableName, firstCol, secondCol, selectedVal);
+                        }
+                        else
+                        {
+                            return $"Entry - {selectedVal} not found in the column - {firstCol}.";
+                        }
+                    }
+                    else
+                    {
+                        return $"Column - {secondCol} not found in the table.";
+                    }
+                }
+                else
+                {
+                    return $"Column - {firstCol} not found in the table.";
+                }
+            }
+            else
+            {
+                return $"Table - {tableName} not found.";
+            }
             return _dataLayer.GetChartVals(tableName, firstCol, secondCol, selectedVal);
         }
     }

@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddScoped<IExcelSQLService, ExcelSQLServices>();
 builder.Services.AddScoped<IDaLayer, DaLayer>();
+builder.Services.AddScoped<IValidationService, ValidationService>();
 
 
 var app = builder.Build();
