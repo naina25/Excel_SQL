@@ -31,6 +31,7 @@ namespace ExcelSql.Controllers
         [Route("sheets")]
         public IActionResult GetSheet()
         {
+            Console.WriteLine("Sheet Function");
             return Ok(_excelSQLService.GetSheetsNames());   // Not needed
         }
 
@@ -82,6 +83,14 @@ namespace ExcelSql.Controllers
         public IActionResult GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
         {
             return Ok(JsonConvert.SerializeObject(_excelSQLService.GetChartVals(tableName, firstCol, secondCol, selectedVal)));
+        }
+
+        [HttpGet]
+        [Route("sheets/search/{tableName}")]
+        public IActionResult search(string tableName, string searchQuery)
+        {
+            Console.WriteLine(tableName); Console.WriteLine(searchQuery);
+            return Ok(_excelSQLService.GetSearchData(tableName, searchQuery));
         }
     }
 }

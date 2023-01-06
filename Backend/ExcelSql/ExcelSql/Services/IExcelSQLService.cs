@@ -14,5 +14,7 @@ namespace ExcelSql.Services
         public string GetSortedData(string tableName, string column, string order);
         public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
 
+        public string GetSearchData(string tableName, string searchQuery);
+
     }
 }

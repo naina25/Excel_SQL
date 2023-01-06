@@ -17,5 +17,7 @@ namespace ExcelSql.Data
         public bool IsColumnPresent(string tableName, string colName);
         public bool IsValuePresent(string tableName, string colName, string val);
 
+        public string GetSearchedData(string tableName, string searchQuery);
+
     }
 }
