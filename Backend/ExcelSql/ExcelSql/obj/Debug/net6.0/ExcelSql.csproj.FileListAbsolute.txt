@@ -141,7 +141,6 @@ C:\Users\naina.upadhyay\Downloads\ExcelSql\ExcelSql\ExcelSql\obj\Debug\net6.0\Ex
 C:\Users\naina.upadhyay\Downloads\ExcelSql\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.genruntimeconfig.cache
 C:\Users\naina.upadhyay\Downloads\ExcelSql\ExcelSql\ExcelSql\obj\Debug\net6.0\ref\ExcelSql.dll
 C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\appsettings.json
 C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\ExcelSql.exe
 C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\ExcelSql.deps.json
 C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\ExcelSql.runtimeconfig.json
@@ -282,3 +281,4 @@ C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\r
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.pdb
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.genruntimeconfig.cache
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ref\ExcelSql.dll
+C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\appsettings.json

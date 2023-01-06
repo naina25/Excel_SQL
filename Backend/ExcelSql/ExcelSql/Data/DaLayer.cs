@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Data.Common;
 
 namespace ExcelSql.Data
@@ -356,6 +357,47 @@ namespace ExcelSql.Data
                 }
             }
             return (table.Rows[0][0].ToString() == "Found");
+        }
+
+        public string GetSearchedData(string tableName, string searchQuery)
+        {
+            List<string> columnList = new List<string>();
+            foreach(var obj in JsonConvert.DeserializeObject<List<JObject>>(GetTableColumns(tableName))){
+                columnList.Add(obj["name"].ToString());
+            };
+
+            string dataQuery = $"SELECT * FROM [{tableName}] where (";
+
+            for(int i = 0; i < columnList.Count; i++)
+            {
+                dataQuery += $" [{columnList[i]}] LIKE '%{searchQuery}%'";
+                if(i != columnList.Count - 1)
+                {
+                    dataQuery += " OR ";
+                }
+                else
+                {
+                    dataQuery += ")";
+                }
+            }
+
+            System.Data.DataTable table = new System.Data.DataTable();
+            string sqlDataSource = dbConnection;
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(dataQuery, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return JsonConvert.SerializeObject(table);
+            
+
         }
     }
 }

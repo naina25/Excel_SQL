@@ -141,7 +141,19 @@ namespace ExcelSql.Services
             {
                 return $"Table - {tableName} not found.";
             }
-            return _dataLayer.GetChartVals(tableName, firstCol, secondCol, selectedVal);
+        }
+
+        public string GetSearchData(string tableName, string searchQuery)
+        {
+            if (_validationService.IsTablePresent(tableName))
+            {
+                return _dataLayer.GetSearchedData(tableName, searchQuery);
+            }
+            else
+            {
+                return $"Table - {tableName} not found";
+            }
+
         }
     }
 }
