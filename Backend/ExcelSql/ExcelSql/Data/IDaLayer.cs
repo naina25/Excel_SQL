@@ -19,5 +19,7 @@ namespace ExcelSql.Data
 
         public string GetSearchedData(string tableName, string searchQuery);
 
+        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
+
     }
 }

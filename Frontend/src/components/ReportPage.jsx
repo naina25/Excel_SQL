@@ -75,7 +75,14 @@ const ReportPage = ({ selectedSheet }) => {
                                 distinctArr.map((val, index) => {
                                     return (
                                         <option key={index}>
-                                            {val[firstSelectCol]}
+                                            <label for={index}>
+                                                <input
+                                                    id={index}
+                                                    type="checkbox"
+                                                    value={val[firstSelectCol]}
+                                                />
+                                                {val[firstSelectCol]}
+                                            </label>
                                         </option>
                                     );
                                 })}

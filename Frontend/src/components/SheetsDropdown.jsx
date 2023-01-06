@@ -29,31 +29,6 @@ const SheetsDropdown = ({
         getSheets();
     }, [source]);
 
-    // useEffect(() => {
-    //     const getSheetData = () => {
-    //         setIsLoadingSheetData(true);
-    //         const sheetUrl = `https://localhost:7108/api/ExcelData/sheets/${selectedSheet}`;
-    //         axios
-    //             .get(sheetUrl)
-    //             .then((res) => {
-    //                 setSheetData(res.data);
-    //                 setIsLoadingSheetData(false);
-    //             })
-    //             .catch((err) => {
-    //                 return console.log(err);
-    //             });
-    //     };
-    //     selectedSheet
-    //         ? getSheetData()
-    //         : sheets[0] && setSelectedSheet(sheets[0]);
-    // }, [
-    //     sheets,
-    //     selectedSheet,
-    //     setSheetData,
-    //     setSelectedSheet,
-    //     setIsLoadingSheetData,
-    // ]);
-
     return (
         <div>
             {!isLoadingSheetNames ? (
@@ -64,7 +39,6 @@ const SheetsDropdown = ({
                     disabled={sheets[0] ? false : true}
                 >
                     {sheets.map((sheet, index) => {
-                        // console.log(sheets);
                         return (
                             <option className="sheet-options" key={index}>
                                 {sheet.Table ? sheet.Table : sheet}

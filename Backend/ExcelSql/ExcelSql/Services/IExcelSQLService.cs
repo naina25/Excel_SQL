@@ -15,6 +15,8 @@ namespace ExcelSql.Services
         public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
 
         public string GetSearchData(string tableName, string searchQuery);
+        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
+
 
     }
 }

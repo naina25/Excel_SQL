@@ -399,5 +399,34 @@ namespace ExcelSql.Data
             
 
         }
+
+        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr)
+        {
+            List<string> dataList = new List<string>();
+            foreach (var val in selectedValArr)
+            {
+                string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
+                $"FROM [{tableName}] WHERE [{firstCol}] = '{val}' GROUP BY [{secondCol}]";
+                System.Data.DataTable table = new System.Data.DataTable();
+                string sqlDataSource = dbConnection;
+                SqlDataReader myReader;
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+                {
+                    myCon.Open();
+                    using (SqlCommand myCommand = new SqlCommand(getGroupedValsQuery, myCon))
+                    {
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);
+                        myReader.Close();
+                        myCon.Close();
+                    }
+                }
+                //Console.WriteLine(JsonConvert.SerializeObject(table));
+                dataList.Add(JsonConvert.SerializeObject(table));
+            }
+            
+            return JsonConvert.SerializeObject(dataList) ;
+            
+        }
     }
 }

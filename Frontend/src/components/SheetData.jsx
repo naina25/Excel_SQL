@@ -10,12 +10,13 @@ const SheetData = ({
     selectedSheet,
     setSelectedSheet,
     sheets,
+    sheetData,
+    setSheetData,
 }) => {
     const [editData, setEditData] = useState();
     const [hasDataUpdated, setHasDataUpdated] = useState(false);
     const [sortCol, setSortCol] = useState();
     const [order, setOrder] = useState();
-    const [sheetData, setSheetData] = useState();
 
     const putRow = (editData) => {
         const jsonStr = JSON.stringify(editData).replaceAll('"', '\\"');
@@ -52,6 +53,7 @@ const SheetData = ({
             axios
                 .get(sheetUrl)
                 .then((res) => {
+                    console.log(res.data);
                     setSheetData && setSheetData(res.data);
                     setIsLoadingSheetData && setIsLoadingSheetData(false);
                 })
