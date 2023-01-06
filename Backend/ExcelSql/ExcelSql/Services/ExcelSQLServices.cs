@@ -155,5 +155,40 @@ namespace ExcelSql.Services
             }
 
         }
+
+        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr)
+        {
+            if (_validationService.IsTablePresent(tableName))
+            {
+                if (_validationService.IsColumnPresent(tableName, firstCol))
+                {
+                    if (_validationService.IsColumnPresent(tableName, secondCol))
+                    {
+                        foreach (var val in selectedValArr)
+                        {
+                            if (!_validationService.IsValuePresent(tableName, firstCol, val))
+                            {
+                                return $"Entry - {val} not found in the column - {firstCol}.";
+                            }
+                        }
+
+                        return _dataLayer.GetBarChartVals(tableName, firstCol, secondCol, selectedValArr);
+                        
+                    }
+                    else
+                    {
+                        return $"Column - {secondCol} not found in the table.";
+                    }
+                }
+                else
+                {
+                    return $"Column - {firstCol} not found in the table.";
+                }
+            }
+            else
+            {
+                return $"Table - {tableName} not found.";
+            }
+        }
     }
 }

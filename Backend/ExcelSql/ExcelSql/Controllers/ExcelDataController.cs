@@ -91,5 +91,12 @@ namespace ExcelSql.Controllers
         {
             return Ok(_excelSQLService.GetSearchData(tableName, searchQuery));
         }
+
+        [HttpGet]
+        [Route("sqltables/{tableName}/Barchart")]
+        public IActionResult GetBarChartVals(string tableName, string firstCol, string secondCol,[FromQuery(Name="arr[]")] string[] selectedValArr)
+        {
+            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetBarChartVals(tableName, firstCol, secondCol, selectedValArr)));
+        }
     }
 }

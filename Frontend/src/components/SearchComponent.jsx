@@ -10,8 +10,6 @@ const SearchComponent = ({
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        console.log(selectedSheet);
-        console.log(searchQuery);
         const GetSearchedData = () => {
             const getUrl = searchQuery
                 ? `https://localhost:7108/api/ExcelData/sheets/search/${selectedSheet}`
@@ -22,14 +20,12 @@ const SearchComponent = ({
                     params: searchQuery && { searchQuery: searchQuery },
                 })
                 .then((res) => {
-                    console.log(res.data);
                     setSheetData(res.data);
                     setIsLoadingSheetData(false);
                 });
         };
 
         GetSearchedData();
-        // searchQuery ? GetSearchedData() : setIsLoadingSheetData(false);
     }, [searchQuery]);
 
     return (
