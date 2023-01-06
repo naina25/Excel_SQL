@@ -89,7 +89,6 @@ namespace ExcelSql.Controllers
         [Route("sheets/search/{tableName}")]
         public IActionResult search(string tableName, string searchQuery)
         {
-            Console.WriteLine(tableName); Console.WriteLine(searchQuery);
             return Ok(_excelSQLService.GetSearchData(tableName, searchQuery));
         }
     }

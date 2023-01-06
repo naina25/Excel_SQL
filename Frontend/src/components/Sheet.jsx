@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReportPage from "./ReportPage";
+import SearchComponent from "./SearchComponent";
 import SheetData from "./SheetData";
 import SheetsDropdown from "./SheetsDropdown";
 
@@ -8,28 +9,31 @@ const Sheet = ({ source, isReport }) => {
     const [isLoadingSheetNames, setIsLoadingSheetNames] = useState(true);
     const [isLoadingSheetData, setIsLoadingSheetData] = useState(false);
     const [selectedSheet, setSelectedSheet] = useState("");
-    const [sourceState, setSourceState] = useState();
-
-    useEffect(() => {
-        setSourceState(source);
-    }, [source]);
-
-    useEffect(() => {
-        console.log(sourceState);
-    }, [sourceState]);
+    const [sheetData, setSheetData] = useState();
 
     return (
         <div>
-            <SheetsDropdown
-                isLoadingSheetNames={isLoadingSheetNames}
-                setIsLoadingSheetNames={setIsLoadingSheetNames}
-                setIsLoadingSheetData={setIsLoadingSheetData}
-                selectedSheet={selectedSheet}
-                setSelectedSheet={setSelectedSheet}
-                sheets={sheets}
-                setSheets={setSheets}
-                source={source}
-            />
+            <div className="sheetDiv">
+                <SheetsDropdown
+                    isLoadingSheetNames={isLoadingSheetNames}
+                    setIsLoadingSheetNames={setIsLoadingSheetNames}
+                    setIsLoadingSheetData={setIsLoadingSheetData}
+                    selectedSheet={selectedSheet}
+                    setSelectedSheet={setSelectedSheet}
+                    sheets={sheets}
+                    setSheets={setSheets}
+                    source={source}
+                />
+                {!isLoadingSheetNames && (
+                    <SearchComponent
+                        selectedSheet={selectedSheet}
+                        setSheetData={setSheetData}
+                        isLoadingSheetData={isLoadingSheetData}
+                        setIsLoadingSheetData={setIsLoadingSheetData}
+                    />
+                )}
+            </div>
+
             {!isReport ? (
                 !isLoadingSheetNames && (
                     <SheetData
@@ -38,6 +42,8 @@ const Sheet = ({ source, isReport }) => {
                         selectedSheet={selectedSheet}
                         setSelectedSheet={setSelectedSheet}
                         sheets={sheets}
+                        sheetData={sheetData}
+                        setSheetData={setSheetData}
                     />
                 )
             ) : (

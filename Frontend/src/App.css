@@ -141,12 +141,14 @@ textarea:focus-visible {
 }
 
 .showPopup {
+    visibility: visible;
     opacity: 1;
     transition: all ease 0.5s;
 }
 
 .hidePopup {
     opacity: 0;
+    visibility: hidden;
     transition: all ease 0.6s;
 }
 
@@ -185,4 +187,32 @@ canvas#myChart {
     width: 60%;
     height: auto;
     overflow: visible;
+}
+
+.sheetDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-div {
+    display: flex;
+    align-items: center;
+}
+.search-div input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(172, 170, 170);
+    background: none;
+    padding: 10px;
+    font-size: 15px;
+}
+.search-div .searchIcon img {
+    width: 20px;
+    height: 20px;
+}
+
+.search-div input:focus-visible {
+    border-bottom: 1px solid black;
+    transition: all ease 0.2s;
 }
