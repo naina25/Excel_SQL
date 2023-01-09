@@ -94,7 +94,7 @@ namespace ExcelSql.Controllers
 
         [HttpGet]
         [Route("sqltables/{tableName}/Barchart")]
-        public IActionResult GetBarChartVals(string tableName, string firstCol, string secondCol,[FromQuery(Name="arr[]")] string[] selectedValArr)
+        public IActionResult GetBarChartVals(string tableName, string firstCol, string secondCol,[FromQuery(Name= "selectedVal[]")] string[] selectedValArr)
         {
             return Ok(JsonConvert.SerializeObject(_excelSQLService.GetBarChartVals(tableName, firstCol, secondCol, selectedValArr)));
         }
