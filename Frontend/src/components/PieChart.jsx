@@ -62,27 +62,12 @@ const PieChart = ({
 									return entry.ValCount;
 								}
 							}),
-						// backgroundColor:
-						// 	chartData &&
-						// 	chartData.map(() => {
-						// 		var letters = "0123456789ABCDEF".split("");
-						// 		var color = "#";
-						// 		for (var i = 0; i < 6; i++) {
-						// 			color +=
-						// 				letters[Math.floor(Math.random() * 16)];
-						// 		}
-						// 		return color;
-						// 	}),
 						hoverOffset: 15,
 					},
 				]);
 			}
 		}
 	}, [distinctArr, chartData]);
-
-	// useEffect(() => {
-	// 	datasetState && datasetState.length && console.log(datasetState);
-	// }, [datasetState]);
 
 	useEffect(() => {
 		const GetChartData = () => {
@@ -126,7 +111,6 @@ const PieChart = ({
 								return entry[secondSelectCol];
 						  }),
 				datasets:
-					// datasetState,
 					selectedArr && selectedArr.length > 1
 						? datasetState
 						: [
@@ -156,11 +140,6 @@ const PieChart = ({
 									hoverOffset: 15,
 								},
 						  ],
-				// chartData &&
-				//   chartData.map((entry) => {
-				// 		console.log(entry);
-				// 		return entry.ValCount;
-				//   }),
 			},
 		});
 
