@@ -68,7 +68,6 @@ const SheetData = ({
 	useEffect(() => {
 		hasDataUpdated &&
 			setTimeout(() => {
-				console.log("hey");
 				setHasDataUpdated(!hasDataUpdated);
 			}, 3000);
 	}, [hasDataUpdated]);

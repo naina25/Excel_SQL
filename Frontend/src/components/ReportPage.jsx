@@ -35,7 +35,7 @@ const ReportPage = ({ selectedSheet }) => {
 				`https://localhost:7108/api/ExcelData/sqltables/${sheet}/${col}`
 			)
 			.then((res) => {
-				setDistinctArr(res.data);
+				typeof res.data === "object" && setDistinctArr(res.data);
 				setSelectedArr &&
 					setSelectedArr([
 						res.data[0][col] !== ""
@@ -58,7 +58,6 @@ const ReportPage = ({ selectedSheet }) => {
 	const SelectCheckbox = (e, val) => {
 		if (e.ctrlKey)
 			if (selectedArr.indexOf(val) !== -1) {
-				console.log(val);
 				setSelectedArr(() => selectedArr.filter((el) => el !== val));
 			} else {
 				setSelectedArr([...selectedArr, val]);
