@@ -3,6 +3,7 @@ import axios from "axios";
 import PopupMessage from "./PopupMessage";
 import UpArrow from "../assets/UpArrow.png";
 import DownArrow from "../assets/DownArrow.png";
+import { Col, Container, Row } from "react-bootstrap";
 
 const SheetData = ({
 	isLoadingSheetData,
@@ -80,18 +81,23 @@ const SheetData = ({
 			<div className="sheet-table-div">
 				{!isLoadingSheetData ? (
 					sheetData && sheetData.length > 0 ? (
-						<table className="xl-table">
-							<thead>
-								<tr className="table-head">
-									{sheetData &&
-										sheetData.length &&
-										Object.keys(sheetData[0]).map(function (
-											keyName,
-											keyIndex
-										) {
+						<Container>
+							<Row
+								xs={2}
+								sm={4}
+								md={5}
+								lg={6}
+								xl={7}
+								xxl={9}
+								className="table-head flex-nowrap"
+							>
+								{sheetData &&
+									sheetData.length &&
+									Object.keys(sheetData[0]).map(
+										(keyName, keyIndex) => {
 											return (
 												keyIndex !== 0 && (
-													<th
+													<Col
 														key={keyIndex}
 														className="table-td"
 														onClick={() => {
@@ -131,79 +137,90 @@ const SheetData = ({
 																)}
 															</span>
 														)}
-													</th>
+													</Col>
 												)
-											);
-										})}
-								</tr>
-							</thead>
-							<tbody>
-								{sheetData &&
-									Object.entries(sheetData).map(
-										([key, value], index) => {
-											return (
-												<tr
-													key={index}
-													className={`${
-														index % 2 === 0 &&
-														"row-bg "
-													}table-row`}
-												>
-													{Object.keys(value).map(
-														(valueKey, ind) => {
-															return (
-																ind !== 0 && (
-																	<td
-																		key={
-																			ind
-																		}
-																		className="table-td"
-																	>
-																		<textarea
-																			rows="4"
-																			defaultValue={
-																				value[
-																					valueKey
-																				]
-																			}
-																			onKeyUp={(
-																				e
-																			) => {
-																				if (
-																					e.key ===
-																					"Enter"
-																				) {
-																					putRow(
-																						editData
-																					);
-																					e.preventDefault();
-																					e.target.blur();
-																				} else {
-																					setEditData(
-																						() => {
-																							return {
-																								...value,
-																								[valueKey]:
-																									e
-																										.target
-																										.value,
-																							};
-																						}
-																					);
-																				}
-																			}}
-																		/>
-																	</td>
-																)
-															);
-														}
-													)}
-												</tr>
 											);
 										}
 									)}
-							</tbody>
-						</table>
+							</Row>
+							{sheetData &&
+								Object.entries(sheetData).map(
+									([, value], index) => {
+										return (
+											<Row
+												xs={2}
+												sm={4}
+												md={5}
+												lg={6}
+												xl={7}
+												xxl={9}
+												key={index}
+												className={`${
+													index % 2 === 0 && "row-bg "
+												}table-row flex-nowrap`}
+											>
+												{Object.keys(value).map(
+													(valueKey, ind) => {
+														return (
+															ind !== 0 && (
+																<Col
+																	key={ind}
+																	className="table-td"
+																>
+																	<textarea
+																		rows="1"
+																		defaultValue={
+																			value[
+																				valueKey
+																			]
+																		}
+																		onKeyDown={(
+																			e
+																		) => {
+																			if (
+																				e.key ===
+																				"Enter"
+																			) {
+																				e.preventDefault();
+																			}
+																		}}
+																		onKeyUp={(
+																			e
+																		) => {
+																			if (
+																				e.key ===
+																				"Enter"
+																			) {
+																				// e.preventDefault();
+																				e.target.blur();
+																				putRow(
+																					editData
+																				);
+																			} else {
+																				setEditData(
+																					() => {
+																						return {
+																							...value,
+																							[valueKey]:
+																								e
+																									.target
+																									.value,
+																						};
+																					}
+																				);
+																			}
+																		}}
+																	/>
+																</Col>
+															)
+														);
+													}
+												)}
+											</Row>
+										);
+									}
+								)}
+						</Container>
 					) : (
 						<h4>No data</h4>
 					)
