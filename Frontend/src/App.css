@@ -1,242 +1,237 @@
 body {
-    height: 100vh;
-    background-color: beige;
+	height: 100vh;
+	background-color: beige;
 }
 .App {
-    text-align: center;
-    /* padding-top: 20px; */
-    display: flex;
-    /* margin-right: 2vw; */
+	text-align: center;
+	/* padding-top: 20px; */
+	display: flex;
+	/* margin-right: 2vw; */
 }
 
 .sidebar-div {
-    min-width: 20vw;
-    max-width: 20vw;
-    background-color: rgba(219, 219, 219, 1);
-    margin-right: 10px;
-    min-height: 100vh;
-    position: fixed;
+	min-width: 20vw;
+	max-width: 20vw;
+	background-color: rgba(219, 219, 219, 1);
+	margin-right: 10px;
+	min-height: 100vh;
+	position: fixed;
 }
 
 .navlinks {
-    display: flex;
-    flex-direction: column;
-    margin-top: 50%;
+	display: flex;
+	flex-direction: column;
+	margin-top: 50%;
 }
 
 .navlinks a {
-    text-decoration: none;
-    margin: 5px 0;
-    font-weight: 600;
-    font-size: 20px;
-    padding: 5px 0;
+	text-decoration: none;
+	margin: 5px 0;
+	font-weight: 600;
+	font-size: 20px;
+	padding: 5px 0;
 }
 .navlinks a:hover {
-    background-color: rgb(174, 175, 175);
+	background-color: rgb(174, 175, 175);
 }
 
 .content-div {
-    margin-left: auto;
-    width: 80vw;
+	margin-left: auto;
+	width: 80vw;
 }
 
 .sheet-dropdown {
-    font-size: 17px;
-    background-color: rgb(200, 231, 204);
-    border: none;
-    padding: 10px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.5s;
-    margin-top: 20px;
+	font-size: 17px;
+	background-color: rgb(200, 231, 204);
+	border: none;
+	padding: 10px;
+	border-radius: 50px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.5s;
+	margin-top: 20px;
 }
 
 .sheet-dropdown:hover {
-    background-color: rgba(200, 231, 204, 0.85);
+	background-color: rgba(200, 231, 204, 0.85);
 }
 .sheet-dropdown:focus-visible {
-    outline: none;
+	outline: none;
 }
+
 .table-td {
-    padding: 10px 0;
-    width: 160px;
+	padding: 10px 0;
+	width: 160px;
 }
 .sheet-table-div {
-    /* display: flex;
+	/* display: flex;
 	justify-content: center;
 	align-items: center; */
-    margin-top: 30px;
-    max-width: 78vw;
-    min-width: 78vw;
-    /* margin-left: auto;*/
-    /* margin-right: 20px; */
-    overflow: scroll;
-    height: 80vh;
+	margin-top: 30px;
+	max-width: 78vw;
+	min-width: 78vw;
+	/* margin-left: auto;*/
+	/* margin-right: 20px; */
+	overflow: scroll;
+	height: 80vh;
 }
 
 .xl-table {
-    table-layout: fixed;
-    /* border: 2px solid rgb(121, 92, 92); */
-    /* border-radius: 15px; */
-    border-spacing: 0;
-    /* min-width: 700px; */
-    width: 100%;
-    /* margin-left: 1220px; */
-    /* overflow-x: scroll; */
-    overflow: hidden;
-    margin-bottom: 15px;
+	table-layout: fixed;
+	/* border: 2px solid rgb(121, 92, 92); */
+	/* border-radius: 15px; */
+	border-spacing: 0;
+	/* min-width: 700px; */
+	width: 100%;
+	/* margin-left: 1220px; */
+	/* overflow-x: scroll; */
+	overflow: hidden;
+	margin-bottom: 15px;
 }
 /* .table-row {
     height: fit-content;
 } */
 
-.table-head {
-    background-color: rgb(0, 0, 0);
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
-}
-.table-head th {
-    cursor: pointer;
+.table-head .col {
+	background-color: rgb(0, 0, 0);
+	color: white;
+	font-weight: 600;
+	font-size: 18px;
+	cursor: pointer;
 }
 .sort-arrows {
-    margin-left: 5px;
-    display: inline-block;
+	margin-left: 5px;
+	display: inline-block;
 }
 
 .sort-arrows img {
-    height: 20px;
+	height: 20px;
 }
 
 .table-data {
-    width: 60px !important;
-    padding: 10px;
+	width: 60px !important;
+	padding: 10px;
 }
 
-.row-bg {
-    background-color: rgb(219, 219, 219);
+.row-bg .col {
+	background-color: rgb(219, 219, 219);
 }
 
 .sheets-div {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .sheet-names {
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 20px;
-    color: rgb(133, 88, 133);
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 20px;
+	color: rgb(133, 88, 133);
 }
 
 textarea {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0);
-    /* min-height: 20px; */
-    font-size: 15px;
-    text-align: center;
-    width: 100%;
-    /* max-height: 100px; */
-    resize: none;
+	background: none;
+	border: 1px solid rgba(255, 255, 255, 0);
+	/* min-height: 20px; */
+	font-size: 15px;
+	text-align: center;
+	width: 100%;
+	/* max-height: 100px; */
+	resize: none !important;
 }
 
 textarea:focus-visible {
-    /* background-color: rgba(255, 255, 255, 0.699); */
-    outline: none;
-    /* border: 1px solid gray; */
+	/* background-color: rgba(255, 255, 255, 0.699); */
+	outline: none;
+	/* border: 1px solid gray; */
 }
 
 .showPopup {
-    visibility: visible;
-    opacity: 1;
-    transition: all ease 0.5s;
+	visibility: visible;
+	opacity: 1;
+	transition: all ease 0.5s;
 }
 
 .hidePopup {
-    opacity: 0;
-    visibility: hidden;
-    transition: all ease 0.6s;
+	opacity: 0;
+	visibility: hidden;
+	transition: all ease 0.6s;
 }
 
 .popup {
-    background-color: rgb(200, 231, 204);
-    width: max-content;
-    padding: 20px;
-    position: absolute;
-    right: 5%;
-    top: 10%;
-    position: fixed;
+	background-color: rgb(200, 231, 204);
+	width: max-content;
+	padding: 20px;
+	position: absolute;
+	right: 5%;
+	top: 10%;
+	position: fixed;
 }
 
 .report-dropdown {
-    font-size: 15px;
-    background-color: rgb(222, 224, 223);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.5s;
-    /* margin-top: 20px;
+	font-size: 15px;
+	background-color: rgb(222, 224, 223);
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.5s;
+	/* margin-top: 20px;
     margin-right: 10px; */
 }
 .report-dropdown:focus-visible {
-    outline: none;
+	outline: none;
 }
 
 .reportPage-div {
-    min-width: 78vw;
-    max-width: 78vw;
+	min-width: 78vw;
+	max-width: 78vw;
 }
 
 canvas#myChart {
-    margin: 50px auto !important;
-    width: 60%;
-    height: max-content;
-    overflow: visible;
+	margin: 50px auto !important;
+	width: 60%;
+	height: max-content;
+	overflow: visible;
 }
 
 .sheet-div {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .search-div {
-    position: absolute;
-    top: 25px;
-    right: 40px;
-    display: flex;
-    align-items: center;
+	position: absolute;
+	top: 25px;
+	right: 40px;
+	display: flex;
+	align-items: center;
 }
 .search-div input {
-    outline: none;
-    border: none;
-    border-bottom: 1px solid rgb(172, 170, 170);
-    background: none;
-    padding: 10px;
-    font-size: 15px;
-}
-.search-div .searchIcon img {
-    width: 20px;
-    height: 20px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid rgb(172, 170, 170);
+	background: none;
+	padding: 10px;
+	font-size: 15px;
 }
 
 .search-div input:focus-visible {
-    border-bottom: 1px solid black;
-    transition: all ease 0.2s;
+	border-bottom: 1px solid black;
+	transition: all ease 0.2s;
 }
 
 .dropdown-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
 }
 
 .dropdown-div label {
-    color: #551a8b;
-    font-weight: 600;
-    margin-bottom: 10px !important;
-    margin-top: 30px !important;
+	color: #551a8b;
+	font-weight: 600;
+	margin-bottom: 10px !important;
+	margin-top: 30px !important;
 }
