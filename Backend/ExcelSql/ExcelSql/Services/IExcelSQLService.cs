@@ -5,7 +5,7 @@ namespace ExcelSql.Services
     public interface IExcelSQLService
     {
         public List<string> GetSheetsNames();
-        public string GetSheetData(string sheetName);
+        public string GetTableData(string tableName);
         public System.Data.DataTable GetSQLTables();
         public string GetTableColumns(string tableName);
         public string GetDistinctVals(string tableName, string colName);

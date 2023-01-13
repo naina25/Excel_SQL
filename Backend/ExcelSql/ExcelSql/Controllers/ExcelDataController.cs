@@ -32,35 +32,35 @@ namespace ExcelSql.Controllers
         public IActionResult GetSheet()
         {
             Console.WriteLine("Sheet Function");
-            return Ok(_excelSQLService.GetSheetsNames());   // Not needed
+            return Ok(_excelSQLService.GetSheetsNames());
         }
 
         [HttpGet]
-        [Route("sheets/{sheetName}")]
-        public IActionResult GetSheetData(string sheetName)
+        [Route("sheets/{tableName}")]
+        public IActionResult GetTableData(string tableName)
         {
-            return Ok(_excelSQLService.GetSheetData(sheetName));  //Done
+            return Ok(_excelSQLService.GetTableData(tableName));
         }
 
         [HttpGet]
         [Route("sqltables")]
         public IActionResult GetTablesName()
         {
-            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSQLTables()));   // Not needed
+            return Ok(JsonConvert.SerializeObject(_excelSQLService.GetSQLTables()));
         }
 
         [HttpGet]
         [Route("sqltables/{tableName}")]
         public IActionResult GetColumnNames(string tableName)
         {
-            return Ok(_excelSQLService.GetTableColumns(tableName));  //Done
+            return Ok(_excelSQLService.GetTableColumns(tableName));
         }
 
         [HttpGet]
         [Route("sqltables/{tableName}/{colName}")]
         public IActionResult GetDistinctVals(string tableName, string colName)
         {
-            return Ok(_excelSQLService.GetDistinctVals(tableName, colName));  //Done
+            return Ok(_excelSQLService.GetDistinctVals(tableName, colName));
         }
 
         [HttpPut]
@@ -68,14 +68,14 @@ namespace ExcelSql.Controllers
         public IActionResult EditSheet(string sheetName, [FromBody] string jsonData)
         {
             
-            return Ok(_excelSQLService.EditSheet(sheetName, jsonData));  //Done
+            return Ok(_excelSQLService.EditSheet(sheetName, jsonData));
         }
 
         [HttpGet]
         [Route("sheets/sort/{tableName}")]
         public IActionResult GetSortedData(string tableName, string column, string order)
         {
-            return Ok(_excelSQLService.GetSortedData(tableName, column, order));  //Done
+            return Ok(_excelSQLService.GetSortedData(tableName, column, order));
         }
 
         [HttpGet]
