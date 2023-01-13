@@ -22,15 +22,15 @@ namespace ExcelSql.Services
             return _dataLayer.GetSheets();
         }
 
-        public string GetSheetData(string sheetName)
+        public string GetTableData(string tableName)
         {
-            if (_validationService.IsTablePresent(sheetName))
+            if (_validationService.IsTablePresent(tableName))
             {
-                return _dataLayer.GetSheetData(sheetName);
+                return _dataLayer.GetTableData(tableName);
             }
             else
             {
-                return $"Table - {sheetName} not found.";
+                return $"Table - {tableName} not found.";
             }
         }
 
