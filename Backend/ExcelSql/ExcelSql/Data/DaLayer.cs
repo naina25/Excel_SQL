@@ -38,26 +38,19 @@ namespace ExcelSql.Data
                 if (!IsTablePresent(tableName: ws.Name))
                 {
                     SimilarTableData similarTableObj = IsTableSimilar(_workbook, ws);
-                    if (similarTableObj.isSimilar == false)
+                    if (similarTableObj.isSimilar == false)     // no distinct cols or Distinct cols greater than 5
                     {
                         CreateAndInsert(_workbook, ws);
                         sheetNames.Add(ws.Name);
                     }
                     else
                     {
-                        if (similarTableObj.count != 0)
+                        if (similarTableObj.count != 0)     // Distinct cols between 0 to 5
                         {
                             AlterTable(similarTableObj.tableName, similarTableObj.colsList);
                         }
-                        List<List<string>> sheetData = GetSheetData(_workbook, ws);
-                        sheetData = GetUniqueData(sheetData, similarTableObj.tableName);
-                        foreach (var row in sheetData)
-                        {
-                            foreach (var item in row)
-                            {
-                                Console.WriteLine(item);
-                            }
-                        }
+                        List<List<string>> sheetData = GetSheetData(_workbook, ws);     // Getting data from excel sheet
+                        sheetData = GetUniqueData(sheetData, similarTableObj.tableName);        // Removing data already present
                         InsertData(similarTableObj.tableName, sheetData);
                         sheetNames.Add(similarTableObj.tableName);
                     }
@@ -141,25 +134,6 @@ namespace ExcelSql.Data
             }
 
             return uniqueData;
-
-
-
-
-            //$"{colName}]='{val}') THEN 'Found' ELSE 'Not Found' END;";
-            //System.Data.DataTable table = new System.Data.DataTable();
-            //SqlDataReader myReader;
-            //using (SqlConnection myCon = new SqlConnection(dbConnection))
-            //{
-            //    myCon.Open();
-            //    using (SqlCommand myCommand = new SqlCommand(query, myCon))
-            //    {
-            //        myReader = myCommand.ExecuteReader();
-            //        table.Load(myReader);
-            //        myReader.Close();
-            //        myCon.Close();
-            //    }
-            //}
-            //return (table.Rows[0][0].ToString() == "Found");
         }
 
         public void CreateAndInsert(Workbook _workbook, Worksheet ws)
@@ -245,12 +219,12 @@ namespace ExcelSql.Data
         public string GetTableData(string tableName)
         {
             string readQuery = $"SELECT * FROM [{tableName}]";
-            System.Data.DataTable table = new System.Data.DataTable();
+            System.Data.DataTable table = new();
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(dbConnection))
+            using (SqlConnection myCon = new(dbConnection))
             {
                 myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(readQuery, myCon))
+                using (SqlCommand myCommand = new(readQuery, myCon))
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
