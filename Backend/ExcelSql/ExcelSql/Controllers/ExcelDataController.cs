@@ -31,7 +31,6 @@ namespace ExcelSql.Controllers
         [Route("sheets")]
         public IActionResult GetSheet()
         {
-            Console.WriteLine("Sheet Function");
             return Ok(_excelSQLService.GetSheetsNames());
         }
 
