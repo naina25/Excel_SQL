@@ -1,32 +1,32 @@
 import "./App.css";
-import Sheet from "./components/Sheet";
-import {
-    BrowserRouter as Router,
-    NavLink,
-    Route,
-    Routes,
-} from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-// import TablesList from "./components/TablesList";
+import MainContent from "./components/MainContent/MainContent";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
     return (
         <div className="App">
             <Router>
-                <Sidebar />
+                <Navbar />
                 <Routes>
                     <Route
                         exact
                         path="/"
-                        element={<Sheet source="sheets" isReport={false} />}
+                        element={
+                            <MainContent source="sheets" isReport={false} />
+                        }
                     />
                     <Route
                         path="/TablesList"
-                        element={<Sheet source="sqltables" isReport={false} />}
+                        element={
+                            <MainContent source="sqltables" isReport={false} />
+                        }
                     />
                     <Route
                         path="/Report"
-                        element={<Sheet source="sqltables" isReport={true} />}
+                        element={
+                            <MainContent source="sqltables" isReport={true} />
+                        }
                     />
                 </Routes>
             </Router>
