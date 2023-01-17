@@ -20,5 +20,5 @@ export const GetChartData = async (
     };
     const getData = await GetDataForChart(url, params);
 
-    getData && setChartData(JSON.parse(getData));
+    getData && setChartData(getData);
 };

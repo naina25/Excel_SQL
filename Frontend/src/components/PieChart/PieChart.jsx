@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
-import { GetDataForChart } from "../../services/PieChartService/PieChartService";
 import "./PieChart.css";
 import { GetChartData } from "./PieChart";
 
