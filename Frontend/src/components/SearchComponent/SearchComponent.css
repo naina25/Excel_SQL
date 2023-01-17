@@ -1,0 +1,26 @@
+.search-div input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(172, 170, 170);
+    background: none;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.search-div input:focus-visible {
+    border-bottom: 1px solid #f1bc31;
+    transition: all ease 0.2s;
+}
+
+@media only screen and (max-width: 600px) {
+    .search-div {
+        width: 50%;
+    }
+    .search-div input {
+        width: 70%;
+        font-size: 13px;
+    }
+    .search-div svg {
+        font-size: small;
+    }
+}

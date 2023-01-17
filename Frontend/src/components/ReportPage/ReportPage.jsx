@@ -1,7 +1,12 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import PieChart from "./PieChart";
+import PieChart from "../PieChart/PieChart.jsx";
+import {
+    getColumnNames,
+    GetDistinctEntries,
+    SelectCheckbox,
+} from "./ReportPage";
+import "./ReportPage.css";
 
 const ReportPage = ({ selectedSheet }) => {
     const [colNames, setColNames] = useState();
@@ -11,16 +16,9 @@ const ReportPage = ({ selectedSheet }) => {
     const [selectedArr, setSelectedArr] = useState();
 
     useEffect(() => {
-        const getColumnNames = () => {
-            axios
-                .get(
-                    `https://localhost:7108/api/ExcelData/sqltables/${selectedSheet}`
-                )
-                .then((res) => {
-                    setColNames(() => res.data.map((val) => val.name));
-                });
-        };
-        selectedSheet && getColumnNames();
+        selectedSheet && getColumnNames(selectedSheet, setColNames);
+        selectedSheet && setFirstSelectCol();
+        selectedSheet && setSecondSelectCol();
     }, [selectedSheet]);
 
     useEffect(() => {
@@ -28,22 +26,6 @@ const ReportPage = ({ selectedSheet }) => {
         colNames && colNames.length && setFirstSelectCol(colNames[1]);
         colNames && colNames.length && setSecondSelectCol(colNames[2]);
     }, [colNames]);
-
-    const GetDistinctEntries = (sheet, col, setDistinctArr, setSelectedArr) => {
-        axios
-            .get(
-                `https://localhost:7108/api/ExcelData/sqltables/${sheet}/${col}`
-            )
-            .then((res) => {
-                typeof res.data === "object" && setDistinctArr(res.data);
-                setSelectedArr &&
-                    setSelectedArr([
-                        res.data[0][col] !== ""
-                            ? res.data[0][col]
-                            : res.data[1][col],
-                    ]);
-            });
-    };
 
     useEffect(() => {
         firstSelectCol &&
@@ -54,18 +36,6 @@ const ReportPage = ({ selectedSheet }) => {
                 setSelectedArr
             );
     }, [firstSelectCol]);
-
-    const SelectCheckbox = (e, val) => {
-        if (e.ctrlKey)
-            if (selectedArr.indexOf(val) !== -1) {
-                setSelectedArr(() => selectedArr.filter((el) => el !== val));
-            } else {
-                setSelectedArr([...selectedArr, val]);
-            }
-        else {
-            setSelectedArr([val]);
-        }
-    };
 
     return (
         <div className="reportPage-div">
@@ -101,7 +71,6 @@ const ReportPage = ({ selectedSheet }) => {
                         <select
                             id="col2"
                             className="report-dropdown"
-                            // defaultValue={distinctVal[firstSelectCol]}
                             defaultValue={[
                                 selectedArr &&
                                     selectedArr.length &&
@@ -119,7 +88,9 @@ const ReportPage = ({ selectedSheet }) => {
                                                 onClick={(e) =>
                                                     SelectCheckbox(
                                                         e,
-                                                        val[firstSelectCol]
+                                                        val[firstSelectCol],
+                                                        selectedArr,
+                                                        setSelectedArr
                                                     )
                                                 }
                                             >

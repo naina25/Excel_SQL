@@ -1,0 +1,6 @@
+canvas#myChart {
+    margin: 50px auto !important;
+    width: 60% !important;
+    height: max-content !important;
+    overflow: visible;
+}

@@ -1,0 +1,18 @@
+.sheet-dropdown {
+    font-size: 17px;
+    background-color: rgb(200, 231, 204);
+    border: none;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.5s;
+    margin-top: 20px;
+}
+
+.sheet-dropdown:hover {
+    background-color: rgba(200, 231, 204, 0.85);
+}
+.sheet-dropdown:focus-visible {
+    outline: none;
+}
