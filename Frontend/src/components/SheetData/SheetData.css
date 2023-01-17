@@ -1,0 +1,78 @@
+.showPopup {
+    visibility: visible;
+    opacity: 1;
+    transition: all ease 0.5s;
+}
+
+.hidePopup {
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease 0.6s;
+}
+
+.sheet-table-div {
+    margin-top: 30px;
+    max-width: 78vw;
+    min-width: 78vw;
+    overflow: scroll;
+    height: 80vh;
+}
+
+.table-head .col {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.table-td {
+    padding: 10px 0;
+    width: 160px;
+}
+
+.xl-table {
+    table-layout: fixed;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.table-head .col {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+.sort-arrows {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.sort-arrows img {
+    height: 20px;
+}
+
+.table-data {
+    width: 60px !important;
+    padding: 10px;
+}
+
+.row-bg .col {
+    background-color: rgb(219, 219, 219);
+}
+
+textarea {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0);
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+    resize: none !important;
+}
+
+textarea:focus-visible {
+    outline: none;
+}

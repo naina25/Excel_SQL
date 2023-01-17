@@ -1,0 +1,11 @@
+.content-div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+}
+
+.sheet-div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
