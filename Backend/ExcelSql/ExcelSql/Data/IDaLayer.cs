@@ -1,12 +1,12 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using ExcelSql.Models;
+using Microsoft.Office.Interop.Excel;
 
 namespace ExcelSql.Data
 {
     public interface IDaLayer
     {
         public List<string> GetSheets();
-        public void CreateAndInsert(Workbook _workbook, Worksheet ws);
-        public string GetSheetData(string sheetName);
+        public string GetTableData(string tableName);
         public System.Data.DataTable GetSqlTables();
         public string GetTableColumns(string tableName);
         public string GetDistinctEntries(string tableName, string colName);
