@@ -29,7 +29,7 @@ namespace ExcelSql.Services
             return _dataLayer.GetSqlTables();
         }
 
-        public string EditSheet(string sheetName, string jsonData)
+        public bool EditSheet(string sheetName, string jsonData)
         {
             jsonData = jsonData.Replace("\\", "");
             Dictionary<string, string>? dictObj = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
