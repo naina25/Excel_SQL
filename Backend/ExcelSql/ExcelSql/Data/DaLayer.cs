@@ -83,8 +83,8 @@ namespace ExcelSql.Data
         {
             Worksheet sheet = _workbook.Sheets[ws.Name];
             Microsoft.Office.Interop.Excel.Range range = sheet.UsedRange;
-            int rowCount = range.Rows.Count;
-            int colCount = range.Columns.Count;
+            var rowCount = range.Rows.Count;
+            var colCount = range.Columns.Count;
             List<List<string>> sheetData = new();
             for (int i = 1; i <= rowCount; i++)
             {
@@ -103,14 +103,16 @@ namespace ExcelSql.Data
 
         private List<List<string>> GetUniqueData(List<List<string>> sheetData, string tableName)
         {
-            List<List<string>> uniqueData= new();
-            uniqueData.Add(sheetData[0]);
+            List<List<string>> uniqueData = new()
+            {
+                sheetData[0]
+            };
             for (int i = 1; i < sheetData.Count; i++)
             {
-                string validateDataQuery = $"SELECT CASE WHEN EXISTS(SELECT 1 FROM [{tableName}] where [";
+                var validateDataQuery = $"SELECT CASE WHEN EXISTS(SELECT 1 FROM [{tableName}] where [";
                 for (int j = 0; j < sheetData[i].Count; j++)
                 {
-                    validateDataQuery += sheetData[0][j] + $"] = '{sheetData[i][j].ToString()}'";
+                    validateDataQuery += sheetData[0][j] + $"] = '{sheetData[i][j]}'";
                     if (j + 1 != sheetData[i].Count)
                         validateDataQuery += "AND [";
                 }
@@ -144,7 +146,7 @@ namespace ExcelSql.Data
             List<List<string>> sheetData = GetSheetData(_workbook, ws);
 
 
-            string createQuery = $"CREATE TABLE [{ws.Name}] (ID int identity, [";
+            var createQuery = $"CREATE TABLE [{ws.Name}] (ID int identity, [";
             for (int i = 0; i < sheetData[0].Count; i++)
             {
                 createQuery += sheetData[0][i] + "] nvarchar(max)";
@@ -171,7 +173,7 @@ namespace ExcelSql.Data
         {
             for (int i = 1; i < sheetData.Count; i++)
             {
-                string insQuery = $"INSERT INTO [{tableName}] values (";
+                var insQuery = $"INSERT INTO [{tableName}] values (";
                 for (int j = 0; j < sheetData[i].Count; j++)
                 {
                     insQuery += "'" + sheetData[i][j].Replace("'", "''").Replace(" 00:00:00", "") + "'";
@@ -198,7 +200,7 @@ namespace ExcelSql.Data
         private void AlterTable(string tableName, List<string> colsList)
         {
 
-            string alterQuery = $"ALTER TABLE [{tableName}] ADD ";
+            var alterQuery = $"ALTER TABLE [{tableName}] ADD ";
             for (int i = 0; i < colsList.Count; i++)
             {
                 alterQuery += "[" + colsList[i] + "] nvarchar(max)";
@@ -221,7 +223,7 @@ namespace ExcelSql.Data
 
         public string GetTableData(string tableName)
         {
-            string readQuery = $"SELECT * FROM [{tableName}]";
+            var readQuery = $"SELECT * FROM [{tableName}]";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
             using (SqlConnection myCon = new(dbConnection))
@@ -240,7 +242,7 @@ namespace ExcelSql.Data
 
         public System.Data.DataTable GetSqlTables()
         {
-            string readQuery = $"SELECT TABLE_NAME as 'Table' FROM INFORMATION_SCHEMA.TABLES;";
+            var readQuery = $"SELECT TABLE_NAME as 'Table' FROM INFORMATION_SCHEMA.TABLES;";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
             using (SqlConnection myCon = new(dbConnection))
@@ -260,7 +262,7 @@ namespace ExcelSql.Data
         public string GetTableColumns(string tableName)
         {
             tableName = tableName.Replace("'", "''");
-            string getColQuery = $"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('{tableName}')";
+            var getColQuery = $"SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('{tableName}')";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
             using (SqlConnection myCon = new(dbConnection))
@@ -277,40 +279,39 @@ namespace ExcelSql.Data
             return JsonConvert.SerializeObject(table);
         }
 
-        public string EditSheet(string sheetName, Dictionary<string, string> dictObj)
+        public bool EditSheet(string sheetName, Dictionary<string, string> dictObj)
         {
-            try
-            {
-                string updateQuery = $"UPDATE [{sheetName}] SET ";
-                string key;
-                string? value;
+            var updateQuery = $"UPDATE [{sheetName}] SET ";
+            string key;
+            string? value;
 
-                for (int i = 1; i < dictObj.Count; i++)
+            for (int i = 1; i < dictObj.Count; i++)
+            {
+                key = dictObj.ElementAt(i).Key.ToString();
+                if (dictObj.ElementAt(i).Value != null)
                 {
-                    key = dictObj.ElementAt(i).Key.ToString();
-                    if (dictObj.ElementAt(i).Value != null)
-                    {
-                        value = dictObj.ElementAt(i).Value.ToString().Replace("'", "''");
-                    }
-                    else
-                    {
-                        value = dictObj.ElementAt(i).Value;
-                    }
-                    updateQuery += $"[{key}]='{value}'";
-                    if (i != dictObj.Count - 1)
-                        updateQuery += ", ";
-                }
-                key = dictObj.ElementAt(0).Key.ToString();
-                if (dictObj.ElementAt(0).Value != null)
-                {
-                    value = dictObj.ElementAt(0).Value.ToString().Replace("'", "''");
+                    value = dictObj.ElementAt(i).Value.ToString().Replace("'", "''");
                 }
                 else
                 {
-                    value = dictObj.ElementAt(0).Value;
+                    value = dictObj.ElementAt(i).Value;
                 }
-                updateQuery += $" WHERE [{key}]='{value.Replace("'", "''")}';";
-
+                updateQuery += $"[{key}]='{value}'";
+                if (i != dictObj.Count - 1)
+                    updateQuery += ", ";
+            }
+            key = dictObj.ElementAt(0).Key.ToString();
+            if (dictObj.ElementAt(0).Value != null)
+            {
+                value = dictObj.ElementAt(0).Value.ToString().Replace("'", "''");
+            }
+            else
+            {
+                value = dictObj.ElementAt(0).Value;
+            }
+            updateQuery += $" WHERE [{key}]={value};";
+            if (IsValuePresent(sheetName, key, value))
+            {
                 using (SqlConnection myCon = new(dbConnection))
                 {
                     myCon.Open();
@@ -320,17 +321,17 @@ namespace ExcelSql.Data
                         myCon.Close();
                     }
                 }
-                return "Data Updated Successfully";
+                return true;
             }
-            catch(Exception ex)
+            else
             {
-                return $"Error occured: {ex.Message}";
+                return false;
             }
         }
 
         public string GetSortedData(string tableName, string column, string order)
         {
-            string readQuery = $"Select * from [{tableName}] order by [{column}] {order}";
+            var readQuery = $"Select * from [{tableName}] order by [{column}] {order}";
             System.Data.DataTable data = new();
             SqlDataReader myReader;
             using (SqlConnection myCon = new(dbConnection))
@@ -349,7 +350,7 @@ namespace ExcelSql.Data
 
         public string GetDistinctEntries(string tableName, string colName)
         {
-            string getDistValQuery = $"SELECT DISTINCT [{colName}] FROM [{tableName}]";
+            var getDistValQuery = $"SELECT DISTINCT [{colName}] FROM [{tableName}]";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
             using (SqlConnection myCon = new(dbConnection))
@@ -368,7 +369,7 @@ namespace ExcelSql.Data
 
         public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal)
         {
-            string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
+            var getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
                 $"FROM [{tableName}] WHERE [{firstCol}] = '{selectedVal}' GROUP BY [{secondCol}]";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
@@ -389,7 +390,7 @@ namespace ExcelSql.Data
         public bool IsTablePresent(string tableName)
         {
             tableName = tableName.Replace("'", "''");
-            string query = $"SELECT CASE WHEN OBJECT_ID('{tableName}', 'U') IS NOT NULL " +
+            var query = $"SELECT CASE WHEN OBJECT_ID('{tableName}', 'U') IS NOT NULL " +
                 $"THEN 'Found' ELSE 'Not Found' END";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
@@ -413,7 +414,7 @@ namespace ExcelSql.Data
 
             Worksheet sheet = _workbook.Sheets[ws.Name];
             Microsoft.Office.Interop.Excel.Range range = sheet.UsedRange;
-            int colCount = range.Columns.Count;
+            var colCount = range.Columns.Count;
             List<string> sheetCols = new();
             for (int j = 1; j <= colCount; j++)
             {
@@ -429,13 +430,11 @@ namespace ExcelSql.Data
             {
                 tables.Add(allTables.Rows[i][0].ToString());
             }
-            Console.WriteLine(allTables.Rows.Count);
 
             foreach (var table in tables)
             {
                 SimilarTableData tempObj = new();
-                Console.WriteLine(tempObj.isSimilar);
-                int count = 0;
+                var count = 0;
                 List<string> columnsList = new();
                 System.Data.DataTable? columnsObjList = JsonConvert.DeserializeObject<System.Data.DataTable>(GetTableColumns(table));
                 for (int i = 0; i < columnsObjList.Rows.Count; i++)
@@ -478,7 +477,7 @@ namespace ExcelSql.Data
         {
             tableName = tableName.Replace("'", "''");
             colName = colName.Replace("'", "''");
-            string query = $"SELECT CASE WHEN COL_LENGTH('{tableName}','{colName}') IS NOT NULL " +
+            var query = $"SELECT CASE WHEN COL_LENGTH('{tableName}','{colName}') IS NOT NULL " +
                 $"THEN 'Found' ELSE 'Not Found' END;";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
@@ -498,7 +497,8 @@ namespace ExcelSql.Data
 
         public bool IsValuePresent(string tableName, string colName, string val)
         {
-            string query = $"SELECT CASE WHEN EXISTS(SELECT 1 FROM [{tableName}] " +
+            val = val.Replace("'", "''");
+            var query = $"SELECT CASE WHEN EXISTS(SELECT 1 FROM [{tableName}] " +
                 $"where [{colName}]='{val}') THEN 'Found' ELSE 'Not Found' END;";
             System.Data.DataTable table = new();
             SqlDataReader myReader;
@@ -518,12 +518,13 @@ namespace ExcelSql.Data
 
         public string GetSearchedData(string tableName, string searchQuery)
         {
+            searchQuery = searchQuery.Replace("'", "''");
             List<string> columnList = new();
             foreach(var obj in JsonConvert.DeserializeObject<List<JObject>>(GetTableColumns(tableName))){
                 columnList.Add(obj["name"].ToString());
             };
 
-            string dataQuery = $"SELECT * FROM [{tableName}] where (";
+            var dataQuery = $"SELECT * FROM [{tableName}] where (";
 
             for(int i = 0; i < columnList.Count; i++)
             {
@@ -559,7 +560,7 @@ namespace ExcelSql.Data
             List<string> dataList = new();
             foreach (var val in selectedValArr)
             {
-                string getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
+                var getGroupedValsQuery = $"SELECT [{secondCol}], COUNT(*) AS ValCount " +
                 $"FROM [{tableName}] WHERE [{firstCol}] = '{val}' GROUP BY [{secondCol}]";
                 System.Data.DataTable table = new();
                 SqlDataReader myReader;

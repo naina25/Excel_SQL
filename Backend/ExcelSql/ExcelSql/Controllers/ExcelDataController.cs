@@ -91,11 +91,15 @@ namespace ExcelSql.Controllers
             }
             try
             {
-                return Ok(_excelSQLService.EditSheet(sheetName, jsonData));
+                if (_excelSQLService.EditSheet(sheetName, jsonData))
+                    return Ok("Data updated successfully");
+                else
+                    return BadRequest($"The field you're trying to update doesn't exist in the table: {sheetName}!");
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error occured: {ex.Message}");
+                Console.WriteLine(ex.Message);
+                return BadRequest("Data entered by you is in an incorrect format!");
             }
         }
 

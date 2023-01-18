@@ -9,7 +9,7 @@ namespace ExcelSql.Services
         public System.Data.DataTable GetSQLTables();
         public string GetTableColumns(string tableName);
         public string GetDistinctVals(string tableName, string colName);
-        public string EditSheet(string sheetName, string jsonData);
+        public bool EditSheet(string sheetName, string jsonData);
 
         public string GetSortedData(string tableName, string column, string order);
         public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
