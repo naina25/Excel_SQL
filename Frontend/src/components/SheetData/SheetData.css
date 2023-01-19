@@ -12,8 +12,8 @@
 
 .sheet-table-div {
     margin-top: 30px;
-    max-width: 78vw;
-    min-width: 78vw;
+    max-width: 80vw;
+    min-width: 80vw;
     overflow: scroll;
     height: 80vh;
 }
