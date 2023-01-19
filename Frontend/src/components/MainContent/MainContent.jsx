@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReportPage from "../ReportPage/ReportPage.jsx";
-import SearchComponent from "../SearchComponent/SearchComponent";
+import SearchComponent from "../SearchComponent/SearchComponent.jsx";
 import SheetData from "../SheetData/SheetData.jsx";
 import SheetsDropdown from "../SheetsDropdown/SheetsDropdown.jsx";
 import "./MainContent.css";
@@ -25,14 +25,14 @@ const MainContent = ({ source, isReport }) => {
                     setSheets={setSheets}
                     source={source}
                 />
-                {/* {!isReport && !isLoadingSheetNames && (
-					<SearchComponent
-						selectedSheet={selectedSheet}
-						setSheetData={setSheetData}
-						isLoadingSheetData={isLoadingSheetData}
-						setIsLoadingSheetData={setIsLoadingSheetData}
-					/>
-				)} */}
+                {!isReport && !isLoadingSheetNames && (
+                    <SearchComponent
+                        selectedSheet={selectedSheet}
+                        setSheetData={setSheetData}
+                        isLoadingSheetData={isLoadingSheetData}
+                        setIsLoadingSheetData={setIsLoadingSheetData}
+                    />
+                )}
             </div>
 
             {!isReport ? (

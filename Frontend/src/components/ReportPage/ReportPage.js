@@ -23,14 +23,22 @@ export const GetDistinctEntries = async (
         ]);
 };
 
-export const SelectCheckbox = (e, val, selectedArr, setSelectedArr) => {
+export const SelectCheckbox = (
+    e,
+    val,
+    selectedArr,
+    setSelectedArr,
+    setChartType
+) => {
     if (e.ctrlKey)
         if (selectedArr.indexOf(val) !== -1) {
             setSelectedArr(() => selectedArr.filter((el) => el !== val));
         } else {
+            selectedArr.length === 1 && setChartType("bar");
             setSelectedArr([...selectedArr, val]);
         }
     else {
         setSelectedArr([val]);
+        setChartType("pie");
     }
 };
