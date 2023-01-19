@@ -10,7 +10,7 @@ namespace ExcelSql.Data
         public System.Data.DataTable GetSqlTables();
         public string GetTableColumns(string tableName);
         public string GetDistinctEntries(string tableName, string colName);
-        public string EditSheet(string sheetName, Dictionary<string, string> dictObj);
+        public bool EditSheet(string sheetName, Dictionary<string, string> dictObj);
         public string GetSortedData(string tableName, string column, string order);
         public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
         public bool IsTablePresent(string tableName);

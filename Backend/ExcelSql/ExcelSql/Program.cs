@@ -1,5 +1,6 @@
 using ExcelSql.Data;
 using ExcelSql.Services;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,21 @@ builder.Services.AddCors();
 builder.Services.AddScoped<IExcelSQLService, ExcelSQLServices>();
 builder.Services.AddScoped<IDaLayer, DaLayer>();
 builder.Services.AddScoped<IValidationService, ValidationService>();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = actionContext =>
+    {
+        //var errors = actionContext.ModelState
+        //    .Where(e => e.Value.Errors.Count > 0)
+        //    .Select(e => new
+        //    {
+        //        Name = e.Key,
+        //        Message = e.Value.Errors.First().ErrorMessage
+        //    }).ToArray();
+
+        return new BadRequestObjectResult("Data entered by you is in an incorrect format!");
+    };
+});
 
 
 var app = builder.Build();
