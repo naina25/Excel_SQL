@@ -1,9 +1,12 @@
-﻿namespace ExcelSql.Services
+﻿using ExcelSql.Models;
+
+namespace ExcelSql.Services
 {
     public interface IValidationService
     {
-        public bool IsTablePresent(string tableName);
-        public bool IsColumnPresent(string tableName, string colName);
-        public bool IsValuePresent(string tableName, string colName, string val);
+        ErrorModel ValidateTable(string tableName);
+        ErrorModel ValidateColumn(string tableName, string colName);
+        List<ErrorModel> ValidatePieChartReq(string tableName, string firstCol, string secondCol, string val);
+        List<ErrorModel> ValidateBarChartReq(string tableName, string firstCol, string secondCol, string[] selectedValArr);
     }
 }

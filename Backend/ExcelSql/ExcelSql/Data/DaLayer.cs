@@ -449,7 +449,6 @@ namespace ExcelSql.Data
                         count++;
                     };
                 }
-                Console.WriteLine($"count {count}");
                 tempObj.count = count;
                 tempObj.tableName = table;
                 if (count == 0)

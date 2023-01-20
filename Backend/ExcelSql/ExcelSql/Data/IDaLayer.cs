@@ -5,21 +5,18 @@ namespace ExcelSql.Data
 {
     public interface IDaLayer
     {
-        public List<string> GetSheets();
-        public string GetTableData(string tableName);
-        public System.Data.DataTable GetSqlTables();
-        public string GetTableColumns(string tableName);
-        public string GetDistinctEntries(string tableName, string colName);
-        public bool EditSheet(string sheetName, Dictionary<string, string> dictObj);
-        public string GetSortedData(string tableName, string column, string order);
-        public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
-        public bool IsTablePresent(string tableName);
-        public bool IsColumnPresent(string tableName, string colName);
-        public bool IsValuePresent(string tableName, string colName, string val);
-
-        public string GetSearchedData(string tableName, string searchQuery);
-
-        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
-
+        List<string> GetSheets();
+        string GetTableData(string tableName);
+        System.Data.DataTable GetSqlTables();
+        string GetTableColumns(string tableName);
+        string GetDistinctEntries(string tableName, string colName);
+        bool EditSheet(string sheetName, Dictionary<string, string> dictObj);
+        string GetSortedData(string tableName, string column, string order);
+        string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
+        bool IsTablePresent(string tableName);
+        bool IsColumnPresent(string tableName, string colName);
+        bool IsValuePresent(string tableName, string colName, string val);
+        string GetSearchedData(string tableName, string searchQuery);
+        string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
     }
 }
