@@ -30,13 +30,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-
-            <SearchComponent
-                selectedSheet=""
-                setSheetData={[]}
-                isLoadingSheetData={false}
-                setIsLoadingSheetData={() => {}}
-            />
         </div>
     );
 };
