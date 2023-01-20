@@ -282,3 +282,5 @@ C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\E
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.genruntimeconfig.cache
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ref\ExcelSql.dll
 C:\Users\naina.upadhyay\Desktop\ExcelSQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\appsettings.json
+C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll

@@ -4,19 +4,15 @@ namespace ExcelSql.Services
 {
     public interface IExcelSQLService
     {
-        public List<string> GetSheetsNames();
-        public string GetTableData(string tableName);
-        public System.Data.DataTable GetSQLTables();
-        public string GetTableColumns(string tableName);
-        public string GetDistinctVals(string tableName, string colName);
-        public bool EditSheet(string sheetName, string jsonData);
-
-        public string GetSortedData(string tableName, string column, string order);
-        public string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
-
-        public string GetSearchData(string tableName, string searchQuery);
-        public string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
-
-
+        List<string> GetSheetsNames();
+        string GetTableData(string tableName);
+        System.Data.DataTable GetSQLTables();
+        string GetTableColumns(string tableName);
+        string GetDistinctVals(string tableName, string colName);
+        bool EditSheet(string sheetName, string jsonData);
+        string GetSortedData(string tableName, string column, string order);
+        string GetChartVals(string tableName, string firstCol, string secondCol, string selectedVal);
+        string GetSearchData(string tableName, string searchQuery);
+        string GetBarChartVals(string tableName, string firstCol, string secondCol, string[] selectedValArr);
     }
 }
