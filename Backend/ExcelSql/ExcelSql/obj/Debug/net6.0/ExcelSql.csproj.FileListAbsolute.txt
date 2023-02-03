@@ -265,7 +265,6 @@ C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\E
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.AssemblyInfoInputs.cache
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.AssemblyInfo.cs
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.csproj.CoreCompileInputs.cache
-C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.MvcApplicationPartsAssemblyInfo.cs
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\ExcelSql.MvcApplicationPartsAssemblyInfo.cache
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\staticwebassets\msbuild.ExcelSql.Microsoft.AspNetCore.StaticWebAssets.props
 C:\training\excel_sql_git\Excel_SQL\Backend\ExcelSql\ExcelSql\obj\Debug\net6.0\staticwebassets\msbuild.build.ExcelSql.props
