@@ -29,7 +29,7 @@ namespace ExcelSql.Services
         public ErrorModel ValidateTable (string tableName)
         {
             ErrorModel errorObj = new();
-            if(!IsTablePresent(tableName))
+            if (!IsTablePresent(tableName))
             {
                 errorObj.statusCode = 400;
                 errorObj.errorMsg = $"Table - {tableName} not found.";
