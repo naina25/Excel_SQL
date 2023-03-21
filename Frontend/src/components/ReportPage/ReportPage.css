@@ -1,11 +1,11 @@
-.reportPage-div {
+/* .reportPage-div {
     min-width: 78vw;
     max-width: 78vw;
-}
+} */
 
 .dropdown-div {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     margin: 0 auto;
@@ -29,4 +29,12 @@
 }
 .report-dropdown:focus-visible {
     outline: none;
+}
+
+.select-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
 }
