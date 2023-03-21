@@ -39,6 +39,27 @@ export const SelectCheckbox = (
         }
     else {
         setSelectedArr([val]);
-        setChartType("pie");
     }
+};
+
+export const getSelectValues = (
+    select,
+    selectedArr,
+    setSelectedArr,
+    setChartType
+) => {
+    var result = [];
+    var options = select && select.options;
+    var opt;
+
+    for (var i = 0, iLen = options.length; i < iLen; i++) {
+        opt = options[i];
+
+        if (opt.selected) {
+            result.push(opt.value || opt.text);
+        }
+    }
+    setSelectedArr(result);
+    selectedArr.length > 0 && setChartType("bar");
+    //return result;
 };
